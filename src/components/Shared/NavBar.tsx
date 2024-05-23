@@ -21,20 +21,6 @@ const NavBar = () => {
     setOpen(newOpen);
   };
 
-  const scrollToSection = (sectionId: string) => {
-    const sectionElement = document.getElementById(sectionId);
-    const offset = 128;
-    if (sectionElement) {
-      const targetScroll = sectionElement.offsetTop - offset;
-      sectionElement.scrollIntoView({ behavior: "smooth" });
-      window.scrollTo({
-        top: targetScroll,
-        behavior: "smooth",
-      });
-      setOpen(false);
-    }
-  };
-
   return (
     <AppBar
       position="fixed"
@@ -61,32 +47,39 @@ const NavBar = () => {
             boxShadow:
               "0 0 1px rgba(85, 166, 246, 0.1), 1px 1.5px 2px -1px rgba(85, 166, 246, 0.15), 4px 4px 12px -2.5px rgba(85, 166, 246, 0.15)",
           }}>
+          <Image src={logo} width={40} alt="logo" />
           <Box
             sx={{
               flexGrow: 1,
               display: "flex",
               alignItems: "center",
+              justifyContent: "center",
               ml: "-18px",
               px: 0,
             }}>
-            <Image
-              src={logo}
-              width={50}
-              height={50}
-              style={{
-                marginLeft: "5px",
-              }}
-              alt="logo"
-            />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <MenuItem sx={{ py: "6px", px: "12px" }}>
-                <Typography variant="body2" color="text.primary">
+              <MenuItem sx={{ ml: "30px", py: "6px", px: "12px" }}>
+                <Typography
+                  component={Link}
+                  href="/"
+                  sx={{ textDecoration: "none", color: "black" }}>
                   Home
                 </Typography>
               </MenuItem>
               <MenuItem sx={{ py: "6px", px: "12px" }}>
-                <Typography variant="body2" color="text.primary">
-                  About
+                <Typography
+                  component={Link}
+                  href="/about-us"
+                  sx={{ textDecoration: "none", color: "black" }}>
+                  About Us
+                </Typography>
+              </MenuItem>
+              <MenuItem sx={{ py: "6px", px: "12px" }}>
+                <Typography
+                  component={Link}
+                  href="/my-profile"
+                  sx={{ textDecoration: "none", color: "black" }}>
+                  My Profile
                 </Typography>
               </MenuItem>
             </Box>
@@ -98,7 +91,7 @@ const NavBar = () => {
               alignItems: "center",
             }}>
             <Button variant="text" size="small">
-              <Link href="/login" style={{ textDecoration: "none" }}>
+              <Link href="/login" style={{ textDecoration: "none", color: "black" }}>
                 Login
               </Link>
             </Button>
@@ -132,8 +125,30 @@ const NavBar = () => {
                     alignItems: "end",
                     flexGrow: 1,
                   }}></Box>
-                <MenuItem>Home</MenuItem>
-                <MenuItem>About</MenuItem>
+                <MenuItem>
+                  <Typography
+                    component={Link}
+                    href="/"
+                    sx={{ textDecoration: "none", color: "black" }}>
+                    Home
+                  </Typography>
+                </MenuItem>
+                <MenuItem>
+                  <Typography
+                    component={Link}
+                    href="/about-us"
+                    sx={{ textDecoration: "none", color: "black" }}>
+                    About Us
+                  </Typography>
+                </MenuItem>
+                <MenuItem>
+                  <Typography
+                    component={Link}
+                    href="/my-profile"
+                    sx={{ textDecoration: "none", color: "black" }}>
+                    My Profile
+                  </Typography>
+                </MenuItem>
                 <Divider />
                 <MenuItem>
                   <Button variant="contained" sx={{ width: "100%" }}>
