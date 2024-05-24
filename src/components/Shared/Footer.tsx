@@ -37,16 +37,16 @@ const Footer = () => {
               minWidth: { xs: "100%", sm: "60%" },
             }}>
             <Box sx={{ width: { xs: "100%", sm: "60%" } }}>
-              <Typography variant="h4" fontWeight={600} gutterBottom>
+              <Typography variant="h4" fontWeight={600} gutterBottom color="primary.main">
                 Adoptify
               </Typography>
-              <IconButton color="primary" aria-label="GitHub">
+              <IconButton color="info" aria-label="GitHub">
                 <FacebookIcon style={{ fontSize: "35px" }} />
               </IconButton>
-              <IconButton color="primary" aria-label="X">
+              <IconButton color="info" aria-label="X">
                 <TwitterIcon style={{ fontSize: "35px" }} />
               </IconButton>
-              <IconButton color="primary" aria-label="LinkedIn">
+              <IconButton color="info" aria-label="LinkedIn">
                 <LinkedInIcon style={{ fontSize: "35px" }} />
               </IconButton>
               <Typography variant="body2" color="text.secondary" mt={1}>
