@@ -79,7 +79,7 @@ const NavBar = () => {
               <MenuItem sx={{ py: "6px", px: "12px" }}>
                 <Typography
                   component={Link}
-                  href="/my-profile"
+                  href="/dashboard/admin"
                   sx={{ textDecoration: "none", color: "black" }}>
                   My Profile
                 </Typography>

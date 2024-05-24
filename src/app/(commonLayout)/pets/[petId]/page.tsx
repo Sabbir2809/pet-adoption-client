@@ -51,7 +51,7 @@ const PetDetailsPage = () => {
                 color: "#12263a",
                 marginBottom: "1rem",
               }}>
-              Nike Shoes
+              Rocky
             </Typography>
             <Typography
               variant="h2"
@@ -69,9 +69,7 @@ const PetDetailsPage = () => {
                 marginBottom: "1rem",
                 color: "#12263a",
               }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eveniet veniam tempora
-              fuga tenetur placeat sapiente architecto illum soluta consequuntur, aspernatur quidem
-              at sequi ipsa!
+              A brave German Shepherd who is fiercely loyal.
             </Typography>
             <Grid container spacing={2}>
               <Grid item xs={6} sm={4} md={6}>
