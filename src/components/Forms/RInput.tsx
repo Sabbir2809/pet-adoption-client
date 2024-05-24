@@ -13,7 +13,7 @@ type TInputProps = {
   sx?: SxProps;
 };
 
-const HInput = ({
+const RInput = ({
   name,
   type = "text",
   label,
@@ -47,4 +47,4 @@ const HInput = ({
   );
 };
 
-export default HInput;
+export default RInput;

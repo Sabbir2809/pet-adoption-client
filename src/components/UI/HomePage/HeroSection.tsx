@@ -1,4 +1,5 @@
 import heroImg from "@/assets/pet.jpg";
+import { Button, Stack, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
@@ -50,6 +51,23 @@ const HeroSection = () => {
               The Pet Adoption website is a comprehensive platform designed to facilitate the
               adoption of pets by connecting potential adopters with available animals.
             </Typography>
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              alignSelf="center"
+              spacing={1}
+              useFlexGap
+              sx={{ pt: 2, width: { xs: "100%", sm: "auto" } }}>
+              <TextField
+                hiddenLabel
+                size="medium"
+                variant="outlined"
+                placeholder="Search Pets"
+                fullWidth
+              />
+              <Button variant="contained" color="primary">
+                Search
+              </Button>
+            </Stack>
           </Box>
           <Box>
             <Image src={heroImg} alt="adopt do not shop" width={450} />

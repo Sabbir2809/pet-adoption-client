@@ -1,63 +1,116 @@
 "use client";
 import logo from "@/assets/logo.png";
+import RForm from "@/components/Forms/RForm";
+import RInput from "@/components/Forms/RInput";
+import { loginUser } from "@/services/actions/loginUser";
+import { registerUser } from "@/services/actions/registerUser";
+import { storeUserInfo } from "@/services/auth.services";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Alert } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import Link from "next/link";
-import * as React from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+
+// zod validation schema
+const registerValidationSchema = z.object({
+  username: z
+    .string({ required_error: "username is Required" })
+    .min(3, "Please Enter Your Full Name!"),
+  password: z
+    .string({ required_error: "Password is Required" })
+    .min(4, "Must be at lest 4 characters!"),
+  email: z
+    .string({ required_error: "Email is Required" })
+    .email("Please Enter Your Valid Email Address!"),
+});
 
 const RegisterPage = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const router = useRouter();
+  const [error, setError] = useState("");
+
+  // login onSubmit handler
+  const handleLogin = async (values: FieldValues) => {
+    try {
+      // register server action
+      const res = await registerUser(values);
+      console.log(res);
+      // checking response
+      if (res?.data?.id) {
+        toast.success(res?.message);
+        // login server action
+        const user = await loginUser({
+          email: values.email,
+          password: values.password,
+        });
+        // checking response
+        if (user?.data?.accessToken) {
+          // set user info localStorage
+          storeUserInfo({ accessToken: user?.data?.accessToken });
+          // navigate home route
+          router.push("/dashboard");
+        }
+      }
+    } catch (error: any) {
+      toast.error(error?.message);
+    }
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}>
-        <Image src={logo} width={70} height={70} alt="logo" />
-        <Typography component="h1" variant="h5">
-          Create Account
-        </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField autoComplete="given-name" name="firstName" fullWidth label="First Name" />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField fullWidth label="Email Address" name="email" />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField fullWidth name="password" label="Password" type="password" />
-            </Grid>
-          </Grid>
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Register
-          </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link href="/login">Already have an account? Login</Link>
-            </Grid>
-          </Grid>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        padding: "20px",
+      }}>
+      {/* Logo */}
+      <Image src={logo} width={70} height={70} alt="logo" />
+      {/* Title */}
+      <Typography variant="h5" sx={{ mt: 4, mb: 2, textAlign: "center" }}>
+        Create a New Account
+      </Typography>
+
+      {/* Error Message */}
+      {error && (
+        <Box>
+          <Alert severity="warning" color="warning">
+            {error}
+          </Alert>
         </Box>
+      )}
+
+      <Box sx={{ width: "100%", maxWidth: "500px" }}>
+        {/* Login Form */}
+        <RForm onSubmit={handleLogin} resolver={zodResolver(registerValidationSchema)}>
+          {/* Email Input */}
+          <RInput name="username" label="Full Name" size="medium" fullWidth sx={{ mb: 2 }} />
+          {/* Email Input */}
+          <RInput name="email" label="Email Address" size="medium" fullWidth sx={{ mb: 2 }} />
+          {/* Password Input */}
+          <RInput name="password" type="password" label="Password" fullWidth size="medium" />
+          {/* Login Button */}
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>
+            Login
+          </Button>
+          {/* Login Link */}
+          <Grid container justifyContent="center">
+            <Grid item>
+              <Link href="/login">{"Do you already have an account? Login"}</Link>
+            </Grid>
+          </Grid>
+        </RForm>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

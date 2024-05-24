@@ -11,7 +11,7 @@ type TFormProps = {
   onSubmit: SubmitHandler<FieldValues>;
 } & TFormConfig;
 
-const HForm = ({ children, onSubmit, resolver, defaultValues }: TFormProps) => {
+const RForm = ({ children, onSubmit, resolver, defaultValues }: TFormProps) => {
   // validation
   const formConfig: TFormConfig = {};
   if (resolver) {
@@ -41,4 +41,4 @@ const HForm = ({ children, onSubmit, resolver, defaultValues }: TFormProps) => {
   );
 };
 
-export default HForm;
+export default RForm;
