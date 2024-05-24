@@ -59,21 +59,17 @@ const pets = [
   },
 ];
 
-const LatestPets = () => {
+const PetsPage = () => {
   return (
     <>
-      <Box sx={{ textAlign: "center" }}>
+      <Box sx={{ textAlign: "center", mt: 20 }}>
         <Typography variant="h4" component="h1" fontWeight={700}>
           Pets Available For Adoption
-        </Typography>
-        <Typography component="p" fontWeight={400} fontSize={18} sx={{ marginTop: 2 }}>
-          Life is easier with a furry best friend by your side. Find your new pet from our animal
-          shelters.
         </Typography>
       </Box>
       <Container sx={{ margin: "30px auto" }}>
         <Grid container spacing={2}>
-          {pets.slice(0, 3).map((pet) => (
+          {pets.map((pet) => (
             <Grid item key={pet.name} xs={12} sm={6} md={4}>
               <Card sx={{ height: "100%" }}>
                 <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -97,7 +93,7 @@ const LatestPets = () => {
                   </CardContent>
                   <CardActions
                     sx={{ justifyContent: "space-between", px: 2, paddingBottom: "20px" }}>
-                    <Button component={Link} href="/" variant="contained">
+                    <Button component={Link} href="/pets/1" variant="contained">
                       View Details
                     </Button>
                   </CardActions>
@@ -106,14 +102,9 @@ const LatestPets = () => {
             </Grid>
           ))}
         </Grid>
-        <Box sx={{ textAlign: "center", mt: 4 }}>
-          <Button component={Link} href="/pets" variant="outlined" size="large">
-            View All Pets
-          </Button>
-        </Box>
       </Container>
     </>
   );
 };
 
-export default LatestPets;
+export default PetsPage;
