@@ -1,10 +1,13 @@
 "use client";
 import RForm from "@/components/Forms/RForm";
 import RInput from "@/components/Forms/RInput";
+import { useChangePasswordMutation } from "@/redux/api/authApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import KeyIcon from "@mui/icons-material/Key";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const validationSchema = z.object({
@@ -13,20 +16,21 @@ const validationSchema = z.object({
 });
 
 const ChangePassword = () => {
-  // const [changePassword] = useChangePasswordMutation();
+  const router = useRouter();
+  const [changePassword] = useChangePasswordMutation();
 
   const submitHandler = async (values: FieldValues) => {
-    // try {
-    //   const res = await changePassword(values).unwrap();
-    //   if (res?.success) {
-    //     toast.success("Password Changed Successfully");
-    //   } else {
-    //     throw new Error("Incorrect Old Password");
-    //   }
-    // } catch (error: any) {
-    //   toast.error(error.message);
-    //   console.log(error.message);
-    // }
+    try {
+      const res = await changePassword(values).unwrap();
+      if (res) {
+        toast.success("Password Changed Successfully");
+        router.push("/dashboard");
+      } else {
+        return toast.error("Incorrect Old Password");
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
 
   return (

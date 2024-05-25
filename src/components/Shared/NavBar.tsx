@@ -140,7 +140,7 @@ const NavBar = () => {
                 <MenuItem>
                   <Typography
                     component={Link}
-                    href="/my-profile"
+                    href="/dashboard"
                     sx={{ textDecoration: "none", color: "black" }}>
                     My Profile
                   </Typography>
