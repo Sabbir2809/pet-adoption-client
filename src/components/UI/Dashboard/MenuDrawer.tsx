@@ -1,7 +1,9 @@
 "use client";
+import { authKey } from "@/constants/authKey";
+import deleteCookies from "@/services/actions/deleteCookies";
 import { Logout } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Avatar, ListItemIcon, Stack } from "@mui/material";
+import { Avatar, ListItemIcon, MenuItem, Stack } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -9,11 +11,14 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { useRouter } from "next/navigation";
 import * as React from "react";
 import SideBar from "./SideBar";
 
 const MenuDrawer = ({ children }: { children: React.ReactNode }) => {
   const drawerWidth = 240;
+  const router = useRouter();
+
   // hooks
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
@@ -30,6 +35,12 @@ const MenuDrawer = ({ children }: { children: React.ReactNode }) => {
     if (!isClosing) {
       setMobileOpen(!mobileOpen);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem(authKey);
+    deleteCookies([authKey, "refreshToken"]);
+    router.push("/login");
   };
 
   return (
@@ -73,11 +84,12 @@ const MenuDrawer = ({ children }: { children: React.ReactNode }) => {
             </Box>
             <Stack direction="row" gap={3} alignItems="center">
               <Avatar alt={"data?.name"} src={"data?.profilePhoto"} />
-              {/* onClick={handleLogout} */}
-              <ListItemIcon>
-                <Logout fontSize="small" sx={{ color: "error.main" }} />
-                Logout
-              </ListItemIcon>
+              <MenuItem onClick={handleLogout}>
+                <ListItemIcon sx={{ color: "error.main" }}>
+                  <Logout fontSize="small" />
+                  Logout
+                </ListItemIcon>
+              </MenuItem>
             </Stack>
           </Box>
         </Toolbar>

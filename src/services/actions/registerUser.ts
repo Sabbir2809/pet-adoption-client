@@ -8,7 +8,12 @@ export const registerUser = async (data: FieldValues) => {
     body: JSON.stringify(data),
     credentials: "include",
   });
+
   const userInfo = await res.json();
+  if (!userInfo.success) {
+    return userInfo;
+  }
+
   if (userInfo.data.accessToken) {
     setAccessToken(userInfo.data.accessToken, {
       redirect: "/dashboard/admin",

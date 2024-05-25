@@ -1,4 +1,4 @@
-import { axiosBaseQuery } from "@/helpers/axios/axiosBaseQuery";
+import { axiosBaseQuery } from "@/utils/axios/axiosBaseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { tagTypesList } from "../tag-types";
 

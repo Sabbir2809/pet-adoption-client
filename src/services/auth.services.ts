@@ -1,5 +1,5 @@
 import { authKey } from "@/constants/authKey";
-import { instance } from "@/helpers/axios/axiosInstance";
+import { instance } from "@/utils/axios/axiosInstance";
 import { decodedToken } from "@/utils/jwt";
 import {
   getFromLocalStorage,

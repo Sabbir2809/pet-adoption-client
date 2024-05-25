@@ -35,13 +35,15 @@ const registerValidationSchema = z.object({
 const RegisterPage = () => {
   const router = useRouter();
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // login onSubmit handler
   const handleLogin = async (values: FieldValues) => {
     try {
       // register server action
+      setIsLoading(true);
       const res = await registerUser(values);
-      console.log(res);
+      setIsLoading(false);
       // checking response
       if (res?.data?.id) {
         toast.success(res?.message);
@@ -52,14 +54,15 @@ const RegisterPage = () => {
         });
         // checking response
         if (user?.data?.accessToken) {
-          // set user info localStorage
+          // set user info localStorage and navigate home route
           storeUserInfo({ accessToken: user?.data?.accessToken });
-          // navigate home route
           router.push("/dashboard");
         }
+      } else {
+        setError(res?.message);
       }
     } catch (error: any) {
-      toast.error(error?.message);
+      console.log(error?.message);
     }
   };
 
@@ -82,8 +85,8 @@ const RegisterPage = () => {
 
       {/* Error Message */}
       {error && (
-        <Box>
-          <Alert severity="warning" color="warning">
+        <Box sx={{ width: "100%", maxWidth: "500px", mb: 1, textAlign: "center" }}>
+          <Alert severity="error" color="error">
             {error}
           </Alert>
         </Box>
