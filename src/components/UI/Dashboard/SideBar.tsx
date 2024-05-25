@@ -1,4 +1,5 @@
 import logo from "@/assets/logo.png";
+import { getUserInfo } from "@/services/auth.services";
 import { UserRole } from "@/types/common";
 import drawerMenuItem from "@/utils/drawerMenuItem";
 import { Box, Stack } from "@mui/material";
@@ -12,8 +13,8 @@ const SideBar = () => {
   const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
-    // const { role } = getUserInfo();
-    // setUserRole(role);
+    const { role } = getUserInfo();
+    setUserRole(role);
   }, []);
 
   return (

@@ -16,7 +16,7 @@ export const registerUser = async (data: FieldValues) => {
 
   if (userInfo.data.accessToken) {
     setAccessToken(userInfo.data.accessToken, {
-      redirect: "/dashboard/admin",
+      redirect: "/dashboard",
     });
   }
   return userInfo;

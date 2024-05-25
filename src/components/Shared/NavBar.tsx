@@ -10,12 +10,15 @@ import Drawer from "@mui/material/Drawer";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 
 const NavBar = () => {
   const [open, setOpen] = React.useState(false);
+
+  const AuthButton = dynamic(() => import("@/components/UI/AuthButton"), { ssr: false });
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -79,7 +82,7 @@ const NavBar = () => {
               <MenuItem sx={{ py: "6px", px: "12px" }}>
                 <Typography
                   component={Link}
-                  href="/dashboard/admin"
+                  href="/dashboard"
                   sx={{ textDecoration: "none", color: "black" }}>
                   My Profile
                 </Typography>
@@ -92,16 +95,7 @@ const NavBar = () => {
               gap: 0.5,
               alignItems: "center",
             }}>
-            <Button variant="text" size="small">
-              <Link href="/login" style={{ textDecoration: "none", color: "black" }}>
-                Login
-              </Link>
-            </Button>
-            <Button variant="contained" size="small">
-              <Link href="/register" style={{ textDecoration: "none", color: "white" }}>
-                Register
-              </Link>
-            </Button>
+            <AuthButton></AuthButton>
           </Box>
           <Box sx={{ display: { sm: "", md: "none" } }}>
             <Button
@@ -153,18 +147,7 @@ const NavBar = () => {
                 </MenuItem>
                 <Divider />
                 <MenuItem>
-                  <Button variant="contained" sx={{ width: "100%" }}>
-                    <Link href="/register" style={{ textDecoration: "none", color: "white" }}>
-                      Register
-                    </Link>
-                  </Button>
-                </MenuItem>
-                <MenuItem>
-                  <Button variant="outlined" sx={{ width: "100%" }}>
-                    <Link href="/login" style={{ textDecoration: "none" }}>
-                      Login
-                    </Link>
-                  </Button>
+                  <AuthButton></AuthButton>
                 </MenuItem>
               </Box>
             </Drawer>

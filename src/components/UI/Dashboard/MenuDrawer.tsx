@@ -1,5 +1,6 @@
 "use client";
 import { authKey } from "@/constants/authKey";
+import { useGetMyProfileQuery } from "@/redux/api/userApi";
 import deleteCookies from "@/services/actions/deleteCookies";
 import { Logout } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -15,15 +16,16 @@ import { useRouter } from "next/navigation";
 import * as React from "react";
 import SideBar from "./SideBar";
 
+const drawerWidth = 240;
 const MenuDrawer = ({ children }: { children: React.ReactNode }) => {
-  const drawerWidth = 240;
   const router = useRouter();
-
-  // hooks
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 
-  // handle function
+  // RTK
+  const { data, isLoading } = useGetMyProfileQuery({});
+
+  // handle Drawer
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -40,7 +42,7 @@ const MenuDrawer = ({ children }: { children: React.ReactNode }) => {
   const handleLogout = () => {
     localStorage.removeItem(authKey);
     deleteCookies([authKey, "refreshToken"]);
-    router.push("/login");
+    window.location.href = "/login";
   };
 
   return (
@@ -78,12 +80,12 @@ const MenuDrawer = ({ children }: { children: React.ReactNode }) => {
                 noWrap
                 component="div"
                 sx={{ color: "rgba(11, 17, 52, 0.6)" }}>
-                Hi,
+                Hi, {isLoading ? "Loading..." : data?.username},
               </Typography>
               <Typography sx={{ color: "primary.main" }}>Welcome to Adoptify</Typography>
             </Box>
             <Stack direction="row" gap={3} alignItems="center">
-              <Avatar alt={"data?.name"} src={"data?.profilePhoto"} />
+              <Avatar alt={data?.username} src={data?.avatarURL} />
               <MenuItem onClick={handleLogout}>
                 <ListItemIcon sx={{ color: "error.main" }}>
                   <Logout fontSize="small" />
