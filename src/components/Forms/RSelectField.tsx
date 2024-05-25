@@ -12,7 +12,7 @@ interface ITextField {
   items: string[];
 }
 
-const HSelectField = ({
+const RSelectField = ({
   items,
   name,
   label,
@@ -52,4 +52,4 @@ const HSelectField = ({
   );
 };
 
-export default HSelectField;
+export default RSelectField;

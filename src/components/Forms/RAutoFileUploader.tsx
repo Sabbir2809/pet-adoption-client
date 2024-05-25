@@ -13,7 +13,7 @@ interface IFileUploadButton {
   onFileUpload: (file: File) => void;
 }
 
-const HAutoFileUploader = ({
+const RAutoFileUploader = ({
   name,
   label,
   accept,
@@ -49,4 +49,4 @@ const HAutoFileUploader = ({
   );
 };
 
-export default HAutoFileUploader;
+export default RAutoFileUploader;

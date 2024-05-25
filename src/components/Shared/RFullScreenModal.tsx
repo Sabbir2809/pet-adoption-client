@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import * as React from "react";
-import { BootstrapDialog } from "./PAModal";
+import { BootstrapDialog } from "./RModal";
 
 // type
 type TModalProps = {
@@ -25,7 +25,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const PAFullScreenModal = ({ open = false, setOpen, title = "", children, sx }: TModalProps) => {
+const RFullScreenModal = ({ open = false, setOpen, title = "", children, sx }: TModalProps) => {
   const handleClose = () => {
     setOpen(false);
   };
@@ -54,4 +54,4 @@ const PAFullScreenModal = ({ open = false, setOpen, title = "", children, sx }: 
   );
 };
 
-export default PAFullScreenModal;
+export default RFullScreenModal;

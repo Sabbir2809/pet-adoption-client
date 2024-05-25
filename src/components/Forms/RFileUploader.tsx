@@ -11,7 +11,7 @@ type TProps = {
   sx?: SxProps;
 };
 
-const HFileUploader = ({ name, label, sx }: TProps) => {
+const RFileUploader = ({ name, label, sx }: TProps) => {
   const { control } = useFormContext();
 
   return (
@@ -42,4 +42,4 @@ const HFileUploader = ({ name, label, sx }: TProps) => {
   );
 };
 
-export default HFileUploader;
+export default RFileUploader;

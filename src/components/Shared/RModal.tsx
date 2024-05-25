@@ -26,7 +26,7 @@ export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const PAModal = ({ open, setOpen, title, children, sx }: TProps) => {
+const RModal = ({ open, setOpen, title, children, sx }: TProps) => {
   const handleClose = () => {
     setOpen(false);
   };
@@ -56,4 +56,4 @@ const PAModal = ({ open, setOpen, title, children, sx }: TProps) => {
   );
 };
 
-export default PAModal;
+export default RModal;
