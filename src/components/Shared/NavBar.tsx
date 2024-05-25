@@ -13,9 +13,12 @@ import Typography from "@mui/material/Typography";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import * as React from "react";
 
 const NavBar = () => {
+  const pathname = usePathname();
+
   const [open, setOpen] = React.useState(false);
 
   const AuthButton = dynamic(() => import("@/components/UI/AuthButton"), { ssr: false });
@@ -67,24 +70,33 @@ const NavBar = () => {
                 <Typography
                   component={Link}
                   href="/"
-                  sx={{ textDecoration: "none", color: "black" }}>
+                  sx={{
+                    textDecoration: "none",
+                    color: pathname === "/" ? "#1565C0" : "black",
+                  }}>
                   Home
                 </Typography>
               </MenuItem>
               <MenuItem sx={{ py: "6px", px: "12px" }}>
                 <Typography
                   component={Link}
-                  href="/about-us"
-                  sx={{ textDecoration: "none", color: "black" }}>
-                  About Us
+                  href="/pets"
+                  sx={{
+                    textDecoration: "none",
+                    color: pathname === "/pets" ? "#1565C0" : "black",
+                  }}>
+                  Pets
                 </Typography>
               </MenuItem>
               <MenuItem sx={{ py: "6px", px: "12px" }}>
                 <Typography
                   component={Link}
-                  href="/dashboard"
-                  sx={{ textDecoration: "none", color: "black" }}>
-                  My Profile
+                  href="/about-us"
+                  sx={{
+                    textDecoration: "none",
+                    color: pathname === "/about-us" ? "#1565C0" : "black",
+                  }}>
+                  About Us
                 </Typography>
               </MenuItem>
             </Box>
@@ -125,30 +137,43 @@ const NavBar = () => {
                   <Typography
                     component={Link}
                     href="/"
-                    sx={{ textDecoration: "none", color: "black" }}>
+                    sx={{
+                      textDecoration: "none",
+                      color: pathname === "/" ? "#1565C0" : "black",
+                    }}>
                     Home
                   </Typography>
                 </MenuItem>
                 <MenuItem>
                   <Typography
                     component={Link}
-                    href="/about-us"
-                    sx={{ textDecoration: "none", color: "black" }}>
-                    About Us
+                    href="/pets"
+                    sx={{
+                      textDecoration: "none",
+                      color: pathname === "/pets" ? "#1565C0" : "black",
+                    }}>
+                    Pets
                   </Typography>
                 </MenuItem>
                 <MenuItem>
                   <Typography
                     component={Link}
-                    href="/dashboard"
-                    sx={{ textDecoration: "none", color: "black" }}>
-                    My Profile
+                    href="/about-us"
+                    sx={{
+                      textDecoration: "none",
+                      color: pathname === "/about-us" ? "#1565C0" : "black",
+                    }}>
+                    About Us
                   </Typography>
                 </MenuItem>
                 <Divider />
-                <MenuItem>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}>
                   <AuthButton></AuthButton>
-                </MenuItem>
+                </Box>
               </Box>
             </Drawer>
           </Box>

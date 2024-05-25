@@ -1,8 +1,6 @@
-import logoutUser from "@/services/actions/logoutUser";
 import { getUserInfo } from "@/services/auth.services";
 import { Button } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 type TUserInfo = {
   email: string;
@@ -11,23 +9,22 @@ type TUserInfo = {
 };
 
 const AuthButton = () => {
-  const router = useRouter();
   const userInfo = getUserInfo() as TUserInfo;
 
   return (
     <>
       {userInfo?.userId ? (
-        <Button
-          href="/login"
-          style={{ textDecoration: "none", color: "black" }}
-          color="error"
-          onClick={() => logoutUser(router)}>
-          Logout
+        <Button variant="text" size="large">
+          <Link
+            href="/dashboard"
+            style={{ textDecoration: "none", fontWeight: "bold", color: "#1565C0" }}>
+            My Profile
+          </Link>
         </Button>
       ) : (
         <>
-          <Button variant="text" size="small">
-            <Link href="/login" style={{ textDecoration: "none", color: "black" }}>
+          <Button variant="text" size="large">
+            <Link href="/login" style={{ textDecoration: "none", color: "#1565C0" }}>
               Login
             </Link>
           </Button>
