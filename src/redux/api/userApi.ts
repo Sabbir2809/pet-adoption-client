@@ -3,7 +3,7 @@ import { baseApi } from "./baseApi";
 
 const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    // get all user
+    // get my profile
     getMyProfile: build.query({
       query: () => ({
         url: "/user/my-profile",
@@ -12,7 +12,7 @@ const userApi = baseApi.injectEndpoints({
       providesTags: [tagTypes.user],
     }),
 
-    // update user profile
+    // update my profile
     updateMyProfile: build.mutation({
       query: (data) => ({
         url: "/user/update-my-profile",
@@ -22,7 +22,52 @@ const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
+
+    // get All Users
+    getAllUsers: build.query({
+      query: () => ({
+        url: "/user/all",
+        method: "GET",
+      }),
+      providesTags: [tagTypes.user],
+    }),
+
+    // Dashboard Metadata
+    dashboardMetadata: build.query({
+      query: () => ({
+        url: "/user/all",
+        method: "GET",
+      }),
+      providesTags: [tagTypes.user],
+    }),
+
+    // change Profile Role
+    changeProfileRole: build.mutation({
+      query: (data) => ({
+        url: `/user/${data.id}`,
+        method: "PATCH",
+        data: data,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
+
+    // change Profile Status
+    changeProfileStatus: build.mutation({
+      query: (data) => ({
+        url: `/user/${data.id}`,
+        method: "PATCH",
+        data: data,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
   }),
 });
 
-export const { useGetMyProfileQuery, useUpdateMyProfileMutation } = userApi;
+export const {
+  useGetMyProfileQuery,
+  useUpdateMyProfileMutation,
+  useGetAllUsersQuery,
+  useDashboardMetadataQuery,
+  useChangeProfileRoleMutation,
+  useChangeProfileStatusMutation,
+} = userApi;
