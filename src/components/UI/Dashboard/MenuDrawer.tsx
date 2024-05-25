@@ -12,6 +12,7 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import SideBar from "./SideBar";
@@ -85,7 +86,9 @@ const MenuDrawer = ({ children }: { children: React.ReactNode }) => {
               <Typography sx={{ color: "primary.main" }}>Welcome to Adoptify</Typography>
             </Box>
             <Stack direction="row" gap={3} alignItems="center">
-              <Avatar alt={data?.username} src={data?.avatarURL} />
+              <Link href="/dashboard">
+                <Avatar alt={data?.username} src={data?.avatarURL} />
+              </Link>
               <MenuItem onClick={handleLogout}>
                 <ListItemIcon sx={{ color: "error.main" }}>
                   <Logout fontSize="small" />
