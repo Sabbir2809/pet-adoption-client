@@ -1,5 +1,9 @@
 "use client";
-import { useChangeProfileRoleMutation, useGetAllUsersQuery } from "@/redux/api/userApi";
+import {
+  useChangeProfileRoleMutation,
+  useDashboardMetadataQuery,
+  useGetAllUsersQuery,
+} from "@/redux/api/userApi";
 import EditIcon from "@mui/icons-material/Edit";
 import {
   Alert,
@@ -8,6 +12,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Pagination,
   Skeleton,
   TableCell,
   Typography,
@@ -34,7 +39,7 @@ const achievementCardStyle = {
 };
 
 type TUser = {
-  id: number;
+  id: string;
   username: string;
   avatarURL: string;
   role: string;
@@ -47,16 +52,34 @@ type TUser = {
 
 const MetadataPage = () => {
   const [openMenu, setOpenMenu] = useState<null | HTMLElement>(null);
-  const [selectRole, setSelectRole] = useState("");
+  const [selectedId, setSelectedId] = useState("");
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+
+  const query: Record<string, any> = {};
+  query["page"] = page;
+  query["limit"] = limit;
+
+  const { data: dashboardMetadata } = useDashboardMetadataQuery(undefined);
 
   const [changeProfileRole] = useChangeProfileRoleMutation();
-  const { data, isLoading } = useGetAllUsersQuery(undefined);
+  const { data, isLoading } = useGetAllUsersQuery({ ...query });
 
-  const adoptionRequestsData = data?.map((item: TUser) => ({
+  const meta = data?.meta;
+  let pageCount: number;
+  if (meta?.total) {
+    pageCount = Math.ceil(meta?.total / limit);
+  }
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
+  const usersData = data?.users.map((item: TUser) => ({
     id: item.id,
     isActive: item.isActive,
     username: item.username,
     avatarURL: item.avatarURL,
+    role: item.role,
     email: item.email,
     phone: item.phone,
     address: item.address,
@@ -73,13 +96,7 @@ const MetadataPage = () => {
       flex: 1,
       renderCell: (params) => (
         <TableCell>
-          <Alert
-            severity={
-              params.value === "ADMIN" ? "success" : params.value === "USER" ? "info" : "error"
-            }
-            sx={{ width: "100%" }}>
-            {params.value}
-          </Alert>
+          <Alert severity="success">{params.value}</Alert>
         </TableCell>
       ),
     },
@@ -92,7 +109,7 @@ const MetadataPage = () => {
       renderCell: ({ row }) => {
         return (
           <Box justifyContent="center">
-            <IconButton aria-label="edit" onClick={(event) => handleMenuClick(event, row.id)}>
+            <IconButton aria-label="edit" onClick={(event) => handleMenuClick(event, row)}>
               <EditIcon />
             </IconButton>
           </Box>
@@ -102,16 +119,13 @@ const MetadataPage = () => {
   ];
 
   // handle role change
-  const handleMenuClick = async (event: React.MouseEvent<HTMLButtonElement>, id: string) => {
+  const handleMenuClick = async (event: React.MouseEvent<HTMLButtonElement>, row: TUser) => {
     setOpenMenu(event.currentTarget);
-    setSelectRole(id);
+    setSelectedId(row.id);
   };
-  const handleMenuItemClick = async (adoptionStatus: string) => {
-    const body = {
-      role: selectRole,
-    };
+  const handleMenuItemClick = async (role: string) => {
     try {
-      const res = await changeProfileRole(body).unwrap();
+      const res = await changeProfileRole({ id: selectedId, role: role }).unwrap();
       if (res?.id) {
         toast.success("Adoption Request Change Successfully!");
       }
@@ -129,60 +143,69 @@ const MetadataPage = () => {
       <Typography variant="h5" sx={{ my: 2 }}>
         Dashboard Managements
       </Typography>
-      <Box sx={{ margin: "50px auto" }}>
+      <Box sx={{ maxWidth: "100%" }}>
         <Grid container spacing={4} justifyContent="center">
-          <Grid item xs={6} md={3}>
+          <Grid item xs={12} md={4}>
             <Box sx={{ ...achievementCardStyle }}>
               <Typography variant="h4" gutterBottom>
-                50+
+                {dashboardMetadata?.petCount}
               </Typography>
-              <Typography variant="subtitle1">Pets Available for Adoption</Typography>
+              <Typography variant="subtitle1">Pets Available</Typography>
             </Box>
           </Grid>
-          {/* Add similar Grid items for other achievements */}
-          <Grid item xs={6} md={3}>
+          <Grid item xs={12} md={4}>
             <Box sx={{ ...achievementCardStyle }}>
               <Typography variant="h4" gutterBottom>
-                10+
+                {Object.keys(dashboardMetadata?.approvedCount).length}
               </Typography>
-              <Typography variant="subtitle1">Successful Adoptions</Typography>
+              <Typography variant="subtitle1">Pet Adoption</Typography>
             </Box>
           </Grid>
-          <Grid item xs={6} md={3}>
+          <Grid item xs={12} md={4}>
             <Box sx={{ ...achievementCardStyle }}>
               <Typography variant="h4" gutterBottom>
-                20+
+                {dashboardMetadata?.userCount}
               </Typography>
-              <Typography variant="subtitle1">Happy Families</Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <Box sx={{ ...achievementCardStyle }}>
-              <Typography variant="h4" gutterBottom>
-                30+
-              </Typography>
-              <Typography variant="subtitle1">Pets Saved</Typography>
+              <Typography variant="subtitle1">Total Users</Typography>
             </Box>
           </Grid>
         </Grid>
       </Box>
-      {isLoading ? (
-        <Box sx={{ width: "100%", height: "100vh", mt: 2 }}>
-          <Skeleton />
-          <Skeleton animation="wave" />
-          <Skeleton animation={false} />
-        </Box>
-      ) : (
-        <Box my={2}>
-          {/* DataGrid */}
-          <DataGrid rows={adoptionRequestsData || []} columns={columns} hideFooter={true} />
-        </Box>
-      )}
-      {/* Menu */}
-      <Menu id="edit-menu" anchorEl={openMenu} open={Boolean(openMenu)} onClose={handleCloseMenu}>
-        <MenuItem onClick={() => handleMenuItemClick("ADMIN")}>Admin</MenuItem>
-        <MenuItem onClick={() => handleMenuItemClick("USER")}>User</MenuItem>
-      </Menu>
+      <Box>
+        {isLoading ? (
+          <Box sx={{ width: "100%", height: "100vh", mt: 2 }}>
+            <Skeleton />
+            <Skeleton animation="wave" />
+            <Skeleton animation={false} />
+          </Box>
+        ) : (
+          <Box my={2}>
+            {/* DataGrid */}
+            <DataGrid
+              rows={usersData || []}
+              columns={columns}
+              hideFooterPagination
+              slots={{
+                footer: () => (
+                  <Box sx={{ m: 2, display: "flex", justifyContent: "end" }}>
+                    <Pagination
+                      count={pageCount}
+                      page={page}
+                      onChange={handleChange}
+                      color="primary"
+                    />
+                  </Box>
+                ),
+              }}
+            />
+          </Box>
+        )}
+        {/* Menu */}
+        <Menu id="edit-menu" anchorEl={openMenu} open={Boolean(openMenu)} onClose={handleCloseMenu}>
+          <MenuItem onClick={() => handleMenuItemClick("ADMIN")}>Admin</MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick("USER")}>User</MenuItem>
+        </Menu>
+      </Box>
     </Box>
   );
 };

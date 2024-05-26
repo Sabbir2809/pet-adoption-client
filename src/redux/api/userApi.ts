@@ -1,3 +1,4 @@
+import { TMeta } from "@/types/common";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
@@ -25,17 +26,24 @@ const userApi = baseApi.injectEndpoints({
 
     // get All Users
     getAllUsers: build.query({
-      query: () => ({
+      query: (arg: Record<string, any>) => ({
         url: "/user/all",
         method: "GET",
+        params: arg,
       }),
+      transformResponse: (response: [], meta: TMeta) => {
+        return {
+          users: response,
+          meta: meta,
+        };
+      },
       providesTags: [tagTypes.user],
     }),
 
     // Dashboard Metadata
     dashboardMetadata: build.query({
       query: () => ({
-        url: "/user/all",
+        url: "/user/dashboard",
         method: "GET",
       }),
       providesTags: [tagTypes.user],
@@ -44,7 +52,7 @@ const userApi = baseApi.injectEndpoints({
     // change Profile Role
     changeProfileRole: build.mutation({
       query: (data) => ({
-        url: `/user/${data.id}`,
+        url: `/user/${data.id}/role`,
         method: "PATCH",
         data: data,
       }),
@@ -54,7 +62,7 @@ const userApi = baseApi.injectEndpoints({
     // change Profile Status
     changeProfileStatus: build.mutation({
       query: (data) => ({
-        url: `/user/${data.id}`,
+        url: `/user/${data.id}/status`,
         method: "PATCH",
         data: data,
       }),

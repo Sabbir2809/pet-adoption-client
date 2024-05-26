@@ -29,6 +29,11 @@ type TAdoption = {
     phone: string;
     address: string;
   };
+  pet: {
+    name: string;
+    photos: string;
+    location: string;
+  };
 };
 
 const AdoptionRequestsPage = () => {
@@ -46,9 +51,15 @@ const AdoptionRequestsPage = () => {
     email: item.user.email,
     phone: item.user.phone,
     address: item.user.address,
+    // name: item.pet.name,
+    // photos: item.pet.photos,
+    // location: item.pet.location,
   }));
 
   const columns: GridColDef[] = [
+    { field: "name", headerName: "Pet Name", flex: 1 },
+    { field: "location", headerName: "Location", flex: 1 },
+    { field: "phone", headerName: "Phone", flex: 1 },
     { field: "username", headerName: "Adoption Name", flex: 1 },
     { field: "address", headerName: "Address", flex: 1 },
     { field: "phone", headerName: "Phone", flex: 1 },
