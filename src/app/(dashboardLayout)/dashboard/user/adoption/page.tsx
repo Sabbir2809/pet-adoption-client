@@ -1,6 +1,6 @@
 "use client";
 import { useGetMyProfileQuery } from "@/redux/api/userApi";
-import { Alert, Box, Skeleton, TableCell } from "@mui/material";
+import { Alert, Box, Skeleton, TableCell, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 
@@ -67,6 +67,9 @@ const AdoptionPage = () => {
 
   return (
     <Box>
+      <Typography variant="h5" sx={{ my: 2 }}>
+        My Adoption Request
+      </Typography>
       {isLoading ? (
         <Box sx={{ width: "100%", height: "100vh", mt: 2 }}>
           <Skeleton />

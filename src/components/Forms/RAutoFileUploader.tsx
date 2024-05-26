@@ -11,6 +11,7 @@ interface IFileUploadButton {
   icon?: ReactElement<SvgIconProps>;
   variant?: "contained" | "text";
   onFileUpload: (file: File) => void;
+  fullWidth?: boolean;
 }
 
 const RAutoFileUploader = ({
@@ -20,6 +21,7 @@ const RAutoFileUploader = ({
   sx,
   icon,
   variant = "contained",
+  fullWidth,
   onFileUpload,
 }: IFileUploadButton) => {
   return (
@@ -35,6 +37,7 @@ const RAutoFileUploader = ({
         <Input
           type="file"
           inputProps={{ accept: accept }}
+          fullWidth={fullWidth}
           style={{ display: "none" }}
           onChange={(e) => {
             const fileInput = e.target as HTMLInputElement;

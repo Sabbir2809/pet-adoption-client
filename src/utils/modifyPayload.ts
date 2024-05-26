@@ -1,16 +1,24 @@
 export const modifyPayload = (values: any) => {
   const obj = { ...values };
   const file = obj["file"];
-  delete obj["file"];
 
-  // string
+  if (file) {
+    delete obj["file"];
+  }
+
   const data = JSON.stringify(obj);
-
-  // FormData instance
   const formData = new FormData();
-  // append
   formData.append("data", data);
-  formData.append("file", file as Blob);
+
+  if (file) {
+    formData.append("file", file as Blob);
+  }
+
+  // Alternative logging without causing type errors
+  console.log("FormData content:");
+  Array.from(formData.entries()).forEach(([key, value]) => {
+    console.log(key, value);
+  });
 
   return formData;
 };

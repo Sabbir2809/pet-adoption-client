@@ -1,3 +1,4 @@
+import { TMeta } from "@/types/common";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
@@ -9,6 +10,7 @@ const petApi = baseApi.injectEndpoints({
         url: `/pets`,
         method: "POST",
         data,
+        contentType: "multipart/form-data",
       }),
       invalidatesTags: [tagTypes.pet],
     }),
@@ -26,17 +28,24 @@ const petApi = baseApi.injectEndpoints({
 
     // get All Pets
     getAllPets: build.query({
-      query: () => ({
+      query: (arg: Record<string, any>) => ({
         url: "/pets",
         method: "GET",
+        params: arg,
       }),
+      transformResponse: (response: [], meta: TMeta) => {
+        return {
+          pets: response,
+          meta: meta,
+        };
+      },
       providesTags: [tagTypes.pet],
     }),
 
     // get Pet Details
     getPetDetails: build.query({
       query: (id) => ({
-        url: `/pet/${id}`,
+        url: `/pets/${id}`,
         method: "GET",
       }),
       providesTags: [tagTypes.pet],
@@ -45,7 +54,7 @@ const petApi = baseApi.injectEndpoints({
     // delete Pet Profile
     deletePetProfile: build.mutation({
       query: (id) => ({
-        url: `/pet/${id}`,
+        url: `/pets/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: [tagTypes.pet],
