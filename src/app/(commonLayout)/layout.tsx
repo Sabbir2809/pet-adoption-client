@@ -1,6 +1,6 @@
 import Footer from "@/components/Shared/Footer";
 import NavBar from "@/components/Shared/NavBar";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Divider } from "@mui/material";
 import React from "react";
 
 const CommonLayout = ({ children }: { children: React.ReactNode }) => {
@@ -9,6 +9,7 @@ const CommonLayout = ({ children }: { children: React.ReactNode }) => {
       <CssBaseline />
       <NavBar></NavBar>
       {children}
+      <Divider />
       <Footer></Footer>
     </div>
   );

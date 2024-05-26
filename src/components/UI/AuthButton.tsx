@@ -1,12 +1,7 @@
 import { getUserInfo } from "@/services/auth.services";
+import { TUserInfo } from "@/types/common";
 import { Button } from "@mui/material";
 import Link from "next/link";
-
-type TUserInfo = {
-  email: string;
-  role: string;
-  userId: string;
-};
 
 const AuthButton = () => {
   const userInfo = getUserInfo() as TUserInfo;
@@ -15,9 +10,7 @@ const AuthButton = () => {
     <>
       {userInfo?.userId ? (
         <Button variant="text" size="large">
-          <Link
-            href="/dashboard"
-            style={{ textDecoration: "none", fontWeight: "bold", color: "#1565C0" }}>
+          <Link href="/dashboard" style={{ textDecoration: "none", color: "#1565C0" }}>
             My Profile
           </Link>
         </Button>

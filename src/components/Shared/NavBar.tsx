@@ -17,9 +17,8 @@ import { usePathname } from "next/navigation";
 import * as React from "react";
 
 const NavBar = () => {
-  const pathname = usePathname();
-
   const [open, setOpen] = React.useState(false);
+  const pathname = usePathname();
 
   const AuthButton = dynamic(() => import("@/components/UI/AuthButton"), { ssr: false });
 

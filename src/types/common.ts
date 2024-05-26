@@ -4,6 +4,12 @@ import { OverridableComponent } from "@mui/material/OverridableComponent";
 
 export type UserRole = keyof typeof USER_ROLE;
 
+export type TUserInfo = {
+  email: string;
+  role: string;
+  userId: string;
+};
+
 export interface IDrawerMenuItem {
   title: string;
   path: string;
