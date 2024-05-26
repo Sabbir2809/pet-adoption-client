@@ -33,7 +33,7 @@ const Footer = () => {
             minWidth: { xs: "100%", sm: "60%" },
           }}>
           <Box sx={{ width: { xs: "100%", sm: "60%" } }}>
-            <Typography variant="h4" fontWeight={600} gutterBottom color="#1565C0">
+            <Typography variant="h4" fontWeight={550} gutterBottom color="#1565C0">
               Adoptify
             </Typography>
             <Box>
@@ -58,7 +58,7 @@ const Footer = () => {
             flexDirection: "column",
             gap: 1,
           }}>
-          <Typography variant="h6" fontWeight={600} color="#1565C0">
+          <Typography variant="h6" fontWeight={500} color="#1565C0">
             Explore
           </Typography>
           <Link href="/about-us" passHref>
@@ -83,7 +83,7 @@ const Footer = () => {
             flexDirection: "column",
             gap: 1,
           }}>
-          <Typography variant="h6" fontWeight={600} color="#1565C0">
+          <Typography variant="h6" fontWeight={500} color="#1565C0">
             Legal
           </Typography>
           <Link href="/about-us" passHref>

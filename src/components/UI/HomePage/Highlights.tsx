@@ -26,12 +26,12 @@ const items = [
 export default function Highlights() {
   return (
     <Box
-      id="highlights"
       sx={{
         pt: { xs: 4, sm: 12 },
         pb: { xs: 8, sm: 16 },
         color: "white",
         bgcolor: "#06090a",
+        mt: 12,
       }}>
       <Container
         sx={{
@@ -49,7 +49,7 @@ export default function Highlights() {
           <Typography component="h2" variant="h4">
             Highlights
           </Typography>
-          <Typography variant="body1" sx={{ color: "grey.400" }}>
+          <Typography variant="body1" sx={{ color: "grey.400", mt: 2 }}>
             Explore the key features of our Pet Adoption platform designed to help pets find loving
             homes.
           </Typography>
@@ -72,10 +72,10 @@ export default function Highlights() {
                   backgroundColor: "grey.900",
                 }}>
                 <div>
-                  <Typography fontWeight="medium" gutterBottom>
+                  <Typography variant="h6" gutterBottom>
                     {item.title}
                   </Typography>
-                  <Typography variant="body2" sx={{ color: "grey.400" }}>
+                  <Typography variant="body1" sx={{ color: "grey.400" }}>
                     {item.description}
                   </Typography>
                 </div>
