@@ -53,7 +53,7 @@ const LatestPets = async () => {
                   </CardContent>
                   <CardActions
                     sx={{ justifyContent: "space-between", px: 2, paddingBottom: "20px" }}>
-                    <Button component={Link} href="/" variant="contained">
+                    <Button component={Link} href={`/pets/${pet.id}`} variant="contained">
                       View Details
                     </Button>
                   </CardActions>

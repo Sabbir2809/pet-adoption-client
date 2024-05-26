@@ -6,7 +6,7 @@ import { decodedToken } from "./utils/jwt";
 type TRole = keyof typeof roleBasedPrivateRoutes;
 
 const authRoutes = ["/login", "/register"];
-const commonPrivateRoutes = ["/dashboard", "/dashboard/change-password", "/pets/:page*"];
+const commonPrivateRoutes = ["/dashboard", "/dashboard/change-password", "/pets"];
 const roleBasedPrivateRoutes = {
   ADMIN: [/^\/dashboard\/admin/],
   USER: [/^\/dashboard\/user/],

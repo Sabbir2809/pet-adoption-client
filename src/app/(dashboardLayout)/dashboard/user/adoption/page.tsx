@@ -5,7 +5,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 
 type TAdoption = {
-  id: number;
+  id: string;
   adoptionStatus: string;
   pet: {
     name: string;

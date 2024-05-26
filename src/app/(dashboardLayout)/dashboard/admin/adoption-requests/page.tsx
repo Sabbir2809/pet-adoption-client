@@ -19,7 +19,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 type TAdoption = {
-  id: number;
+  id: string;
   adoptionStatus: string;
   user: {
     username: string;
@@ -55,6 +55,8 @@ const AdoptionRequestsPage = () => {
     photos: item.pet.photos,
     location: item.pet.location,
   }));
+
+  console.log(data);
 
   const columns: GridColDef[] = [
     { field: "name", headerName: "Pet Name", flex: 1 },

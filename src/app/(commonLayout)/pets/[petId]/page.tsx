@@ -1,10 +1,12 @@
 "use client";
-import AddPetModal from "@/components/UI/Dashboard/AddPetModal";
+import AdoptionRequestModal from "@/components/UI/HomePage/AdoptionRequestModal";
 import ListItemCard from "@/components/UI/HomePage/ListItemCard";
 import { useGetPetDetailsQuery } from "@/redux/api/petApi";
+import { isLoggedIn } from "@/services/auth.services";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type TParams = {
@@ -14,9 +16,14 @@ type TParams = {
 };
 
 const PetDetailsPage = ({ params }: TParams) => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const id = params?.petId;
   const { data: petDetails, isLoading } = useGetPetDetailsQuery(id);
+
+  if (!isLoggedIn()) {
+    return router.push("/login");
+  }
 
   return (
     <Container maxWidth="lg" sx={{ marginTop: "100px", height: "100vh" }}>
@@ -30,7 +37,7 @@ const PetDetailsPage = ({ params }: TParams) => {
               justifyContent: "center",
               alignItems: "center",
             }}>
-            <Image src={petDetails?.photo} width={500} height={500} alt={petDetails?.name} />
+            <Image src={petDetails?.photos} width={500} height={500} alt={petDetails?.name} />
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -43,7 +50,7 @@ const PetDetailsPage = ({ params }: TParams) => {
                 color: "#12263a",
                 marginBottom: "1rem",
               }}>
-              {petDetails.name}
+              {petDetails?.name}
             </Typography>
             <Typography
               variant="h2"
@@ -80,9 +87,9 @@ const PetDetailsPage = ({ params }: TParams) => {
                 <ListItemCard title="Temperament:" value={petDetails?.temperament} />
               </Grid>
             </Grid>
-            <AddPetModal open={open} setOpen={setOpen} />
+            <AdoptionRequestModal open={open} setOpen={setOpen} petId={petDetails?.id} />
             <Button startIcon={<AddIcon />} variant="contained" onClick={() => setOpen(true)}>
-              Add New Pet
+              Send Adoption Request
             </Button>
           </Box>
         </Grid>
