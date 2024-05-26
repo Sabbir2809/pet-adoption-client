@@ -1,8 +1,8 @@
 // icons
 import { USER_ROLE } from "@/constants/role";
 import { IDrawerMenuItem, UserRole } from "@/types/common";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import KeyIcon from "@mui/icons-material/Key";
-import PeopleIcon from "@mui/icons-material/People";
 import PetsIcon from "@mui/icons-material/Pets";
 import RequestPageIcon from "@mui/icons-material/RequestPage";
 
@@ -22,9 +22,9 @@ const drawerMenuItem = (role: UserRole): IDrawerMenuItem[] => {
     case USER_ROLE.ADMIN:
       roleMenuItems.push(
         {
-          title: "User Management",
-          path: `${role}/user-managements`,
-          icon: PeopleIcon,
+          title: "Dashboard",
+          path: `${role}/metadata`,
+          icon: DashboardIcon,
         },
         {
           title: "Pets",
