@@ -1,9 +1,22 @@
 "use client";
-import { useGetAllAdoptionRequestQuery } from "@/redux/api/adoptionRequestApi";
+import {
+  useGetAllAdoptionRequestQuery,
+  useUpdateAdoptionRequestMutation,
+} from "@/redux/api/adoptionRequestApi";
 import EditIcon from "@mui/icons-material/Edit";
-import { Alert, Box, IconButton, Skeleton, TableCell, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  Skeleton,
+  TableCell,
+  Typography,
+} from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
+import { toast } from "sonner";
 
 type TAdoption = {
   id: number;
@@ -19,7 +32,10 @@ type TAdoption = {
 };
 
 const AdoptionRequestsPage = () => {
-  const [open, setOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<null | HTMLElement>(null);
+  const [requestId, setRequestId] = useState("");
+
+  const [updateAdoptionRequest] = useUpdateAdoptionRequestMutation();
   const { data, isLoading } = useGetAllAdoptionRequestQuery(undefined);
 
   const adoptionRequestsData = data?.map((item: TAdoption) => ({
@@ -67,7 +83,7 @@ const AdoptionRequestsPage = () => {
       renderCell: ({ row }) => {
         return (
           <Box justifyContent="center">
-            <IconButton aria-label="edit">
+            <IconButton aria-label="edit" onClick={(event) => handleMenuClick(event, row.id)}>
               <EditIcon />
             </IconButton>
           </Box>
@@ -75,6 +91,31 @@ const AdoptionRequestsPage = () => {
       },
     },
   ];
+
+  const handleMenuClick = async (event: React.MouseEvent<HTMLButtonElement>, id: string) => {
+    setOpenMenu(event.currentTarget);
+    setRequestId(id);
+  };
+
+  const handleMenuItemClick = async (adoptionStatus: string) => {
+    const body = {
+      id: requestId,
+      adoptionStatus: adoptionStatus,
+    };
+    try {
+      const res = await updateAdoptionRequest(body).unwrap();
+      if (res?.id) {
+        toast.success("Adoption Request Change Successfully!");
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
+    setOpenMenu(null);
+  };
+
+  const handleCloseMenu = () => {
+    setOpenMenu(null);
+  };
 
   return (
     <Box>
@@ -93,6 +134,12 @@ const AdoptionRequestsPage = () => {
           <DataGrid rows={adoptionRequestsData || []} columns={columns} hideFooter={true} />
         </Box>
       )}
+      {/* Menu */}
+      <Menu id="edit-menu" anchorEl={openMenu} open={Boolean(openMenu)} onClose={handleCloseMenu}>
+        <MenuItem onClick={() => handleMenuItemClick("PENDING")}>PENDING</MenuItem>
+        <MenuItem onClick={() => handleMenuItemClick("REJECTED")}>REJECTED</MenuItem>
+        <MenuItem onClick={() => handleMenuItemClick("APPROVED")}>APPROVED</MenuItem>
+      </Menu>
     </Box>
   );
 };

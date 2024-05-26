@@ -5,7 +5,7 @@ import { instance } from "./axiosInstance";
 
 export const axiosBaseQuery =
   (
-    { baseUrl }: { baseUrl: string } = { baseUrl: "" }
+    { baseUrl }: { baseUrl: string } = { baseUrl: `${process.env.NEXT_PUBLIC_BACKEND_API_URL}` }
   ): BaseQueryFn<
     {
       url: string;

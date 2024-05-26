@@ -10,17 +10,17 @@ const adoptionRequestApi = baseApi.injectEndpoints({
         method: "POST",
         data,
       }),
-      invalidatesTags: [tagTypes.pet],
+      invalidatesTags: [tagTypes.adoption],
     }),
 
     // update Pet Profile
     updateAdoptionRequest: build.mutation({
-      query: (data) => ({
-        url: `/pets${data.id}`,
+      query: (body) => ({
+        url: `/adoption/request/${body.id}`,
         method: "PATCH",
-        data: data,
+        data: body,
       }),
-      invalidatesTags: [tagTypes.pet],
+      invalidatesTags: [tagTypes.adoption],
     }),
 
     // get All Pets
@@ -29,7 +29,7 @@ const adoptionRequestApi = baseApi.injectEndpoints({
         url: "/adoption/requests",
         method: "GET",
       }),
-      providesTags: [tagTypes.pet],
+      providesTags: [tagTypes.adoption],
     }),
   }),
 });
