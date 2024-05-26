@@ -109,7 +109,7 @@ const MetadataPage = () => {
       renderCell: ({ row }) => {
         return (
           <Box justifyContent="center">
-            <IconButton aria-label="edit" onClick={(event) => handleMenuClick(event, row)}>
+            <IconButton aria-label="edit" onClick={(event) => handleMenuClick(event, row.id)}>
               <EditIcon />
             </IconButton>
           </Box>
@@ -119,9 +119,9 @@ const MetadataPage = () => {
   ];
 
   // handle role change
-  const handleMenuClick = async (event: React.MouseEvent<HTMLButtonElement>, row: TUser) => {
+  const handleMenuClick = async (event: React.MouseEvent<HTMLButtonElement>, id: string) => {
     setOpenMenu(event.currentTarget);
-    setSelectedId(row.id);
+    setSelectedId(id);
   };
   const handleMenuItemClick = async (role: string) => {
     try {
@@ -156,7 +156,7 @@ const MetadataPage = () => {
           <Grid item xs={12} md={4}>
             <Box sx={{ ...achievementCardStyle }}>
               <Typography variant="h4" gutterBottom>
-                {Object.keys(dashboardMetadata?.approvedCount).length}
+                1
               </Typography>
               <Typography variant="subtitle1">Pet Adoption</Typography>
             </Box>

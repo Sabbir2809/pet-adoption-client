@@ -51,9 +51,9 @@ const AdoptionRequestsPage = () => {
     email: item.user.email,
     phone: item.user.phone,
     address: item.user.address,
-    // name: item.pet.name,
-    // photos: item.pet.photos,
-    // location: item.pet.location,
+    name: item.pet.name,
+    photos: item.pet.photos,
+    location: item.pet.location,
   }));
 
   const columns: GridColDef[] = [
