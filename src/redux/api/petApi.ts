@@ -18,7 +18,7 @@ const petApi = baseApi.injectEndpoints({
     // update Pet Profile
     updatePetProfile: build.mutation({
       query: (data) => ({
-        url: "/pets",
+        url: `/pets/${data.id}`,
         method: "PATCH",
         data: data,
         contentType: "multipart/form-data",

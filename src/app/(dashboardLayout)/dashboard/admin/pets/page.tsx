@@ -1,12 +1,17 @@
 "use client";
 import AddPetModal from "@/components/UI/Dashboard/AddPetModal";
-import { useDeletePetProfileMutation, useGetAllPetsQuery } from "@/redux/api/petApi";
+import {
+  useDeletePetProfileMutation,
+  useGetAllPetsQuery,
+  useUpdatePetProfileMutation,
+} from "@/redux/api/petApi";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, Button, IconButton, Pagination, Skeleton, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -34,6 +39,7 @@ const PetsPage = () => {
 
   const { data, isLoading } = useGetAllPetsQuery({ ...query });
   const [deletePetProfile] = useDeletePetProfileMutation();
+  const [updatePetProfile] = useUpdatePetProfileMutation();
 
   const meta = data?.meta;
   let pageCount: number;
@@ -95,9 +101,11 @@ const PetsPage = () => {
             <IconButton aria-label="delete" onClick={() => handleDelete(row.id)}>
               <DeleteIcon sx={{ color: "red" }} />
             </IconButton>
-            <IconButton aria-label="delete" onClick={() => handleDelete(row.id)}>
-              <EditIcon sx={{ color: "blueviolet" }} />
-            </IconButton>
+            <Link href={`/dashboard/admin/pets/edit/${row.id}`}>
+              <IconButton aria-label="edit">
+                <EditIcon sx={{}} />
+              </IconButton>
+            </Link>
           </Box>
         );
       },
