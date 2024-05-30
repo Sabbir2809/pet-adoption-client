@@ -1,4 +1,5 @@
 "use client";
+import Loader from "@/components/Shared/Loader";
 import AdoptionRequestModal from "@/components/UI/HomePage/AdoptionRequestModal";
 import { useGetPetDetailsQuery } from "@/redux/api/petApi";
 import { isLoggedIn } from "@/services/auth.services";
@@ -24,6 +25,15 @@ const StyledInformationBox = styled(Box)(({ theme }) => ({
   },
 }));
 
+const PetInfo = ({ label, value }: { label: string; value: string }) => (
+  <StyledInformationBox>
+    <Typography color="secondary" variant="caption">
+      {label}
+    </Typography>
+    <Typography>{value}</Typography>
+  </StyledInformationBox>
+);
+
 const PetDetailsPage = ({ params }: TParams) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -36,76 +46,57 @@ const PetDetailsPage = ({ params }: TParams) => {
 
   return (
     <Container maxWidth="lg" sx={{ marginTop: "100px", minHeight: "100vh" }}>
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}>
-            <Image src={petDetails?.photos} width={500} height={500} alt={petDetails?.name} />
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Box>
-            <Typography variant="h3">{petDetails?.name}</Typography>
-            <Typography variant="h6" sx={{ mt: 2, mb: 2 }}>
-              {petDetails?.description}
-            </Typography>
-            <Stack
-              direction={{
-                sx: "column",
-                md: "row",
-              }}
-              gap={2}
-              flexWrap="wrap">
-              <StyledInformationBox>
-                <Typography color="secondary" variant="caption">
-                  Age
-                </Typography>
-                <Typography>{petDetails?.age}</Typography>
-              </StyledInformationBox>
-              <StyledInformationBox>
-                <Typography color="secondary" variant="caption">
-                  Gender
-                </Typography>
-                <Typography>{petDetails?.gender}</Typography>
-              </StyledInformationBox>
-              <StyledInformationBox>
-                <Typography color="secondary" variant="caption">
-                  Species
-                </Typography>
-                <Typography>{petDetails?.species}</Typography>
-              </StyledInformationBox>
-              <StyledInformationBox>
-                <Typography color="secondary" variant="caption">
-                  Location
-                </Typography>
-                <Typography>{petDetails?.location}</Typography>
-              </StyledInformationBox>
-              <StyledInformationBox>
-                <Typography color="secondary" variant="caption">
-                  Temperament
-                </Typography>
-                <Typography>{petDetails?.temperament}</Typography>
-              </StyledInformationBox>
-            </Stack>
-
-            <Box mt={4}>
-              <AdoptionRequestModal open={open} setOpen={setOpen} petId={petDetails?.id} />
-              <Button
-                startIcon={<SendIcon />}
-                variant="contained"
-                size="large"
-                color="primary"
-                onClick={() => setOpen(true)}>
-                Adoption Request
-              </Button>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+              }}>
+              <Image
+                src={petDetails?.photos}
+                width={500}
+                height={500}
+                alt={petDetails?.name}
+                style={{ objectFit: "cover" }}
+              />
             </Box>
-          </Box>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Box>
+              <Typography variant="h3">{petDetails?.name}</Typography>
+              <Typography variant="h6" sx={{ mt: 2, mb: 2 }}>
+                {petDetails?.description}
+              </Typography>
+              <Stack direction="row" flexWrap="wrap" gap={2} sx={{ mt: 2 }}>
+                <PetInfo label="Age" value={petDetails?.age} />
+                <PetInfo label="Gender" value={petDetails?.gender} />
+                <PetInfo label="Species" value={petDetails?.species} />
+                <PetInfo label="Breed" value={petDetails?.breed} />
+                <PetInfo label="Size" value={petDetails?.size} />
+                <PetInfo label="Location" value={petDetails?.location} />
+                <PetInfo label="Temperament" value={petDetails?.temperament} />
+              </Stack>
+              <Box mt={4}>
+                <AdoptionRequestModal open={open} setOpen={setOpen} petId={petDetails?.id} />
+                <Button
+                  startIcon={<SendIcon />}
+                  variant="contained"
+                  size="large"
+                  color="primary"
+                  onClick={() => setOpen(true)}>
+                  Adoption Request
+                </Button>
+              </Box>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
+      )}
     </Container>
   );
 };
