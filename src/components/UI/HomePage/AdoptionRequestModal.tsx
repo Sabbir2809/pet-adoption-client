@@ -37,7 +37,7 @@ const AdoptionRequestModal = ({ open, setOpen, petId }: TProps) => {
   };
 
   return (
-    <RModal open={open} setOpen={setOpen} title="Send Adoption Request">
+    <RModal open={open} setOpen={setOpen} title="Adoption Request Send Process">
       <RForm onSubmit={submitHandler}>
         <RInput
           name="petOwnershipExperience"
@@ -46,8 +46,8 @@ const AdoptionRequestModal = ({ open, setOpen, petId }: TProps) => {
           fullWidth
         />
         <RInput name="additionalInfo" label="Additional Information" sx={{ mb: 2 }} fullWidth />
-        <Button type="submit" variant="outlined">
-          Adaption Request
+        <Button type="submit" variant="contained">
+          Submit
         </Button>
       </RForm>
     </RModal>

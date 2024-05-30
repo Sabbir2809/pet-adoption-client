@@ -2,7 +2,7 @@
 import AdoptionRequestModal from "@/components/UI/HomePage/AdoptionRequestModal";
 import { useGetPetDetailsQuery } from "@/redux/api/petApi";
 import { isLoggedIn } from "@/services/auth.services";
-import AddIcon from "@mui/icons-material/Add";
+import SendIcon from "@mui/icons-material/Send";
 import { Box, Button, Container, Grid, Stack, Typography, styled } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -95,12 +95,12 @@ const PetDetailsPage = ({ params }: TParams) => {
             <Box mt={4}>
               <AdoptionRequestModal open={open} setOpen={setOpen} petId={petDetails?.id} />
               <Button
-                startIcon={<AddIcon />}
+                startIcon={<SendIcon />}
                 variant="contained"
                 size="large"
                 color="primary"
                 onClick={() => setOpen(true)}>
-                Send Adoption Request
+                Adoption Request
               </Button>
             </Box>
           </Box>
