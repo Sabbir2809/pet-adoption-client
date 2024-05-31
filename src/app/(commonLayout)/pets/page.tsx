@@ -35,13 +35,19 @@ const PetsPage = async () => {
             <Grid item key={pet.id} xs={12} sm={6} md={4}>
               <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <Box sx={{ position: "relative", height: 0, paddingTop: "56.25%" }}>
-                  <Image
-                    src={pet?.photos}
-                    alt={pet?.name}
-                    layout="fill"
-                    objectFit="cover"
-                    style={{ borderTopLeftRadius: "4px", borderTopRightRadius: "4px" }}
-                  />
+                  {pet.photos && (
+                    <Image
+                      src={pet?.photos}
+                      alt={pet?.name}
+                      fill
+                      style={{
+                        objectFit: "cover",
+                        borderTopLeftRadius: "4px",
+                        borderTopRightRadius: "4px",
+                      }}
+                      sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 33vw"
+                    />
+                  )}
                 </Box>
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography gutterBottom variant="h5" component="div">

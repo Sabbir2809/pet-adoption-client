@@ -13,13 +13,11 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import * as React from "react";
 import SideBar from "./SideBar";
 
 const drawerWidth = 240;
 const MenuDrawer = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 

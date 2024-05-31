@@ -15,7 +15,7 @@ const ProfileInformation = ({ data }: any) => {
   return (
     <>
       <Typography variant="h5" color="primary.main">
-        Basic Information
+        Profile Information
       </Typography>
       <Stack
         direction={{

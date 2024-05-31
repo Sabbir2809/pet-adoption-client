@@ -1,13 +1,13 @@
 "use client";
 import RAutoFileUploader from "@/components/Forms/RAutoFileUploader";
+import Loader from "@/components/Shared/Loader";
 import ProfileInformation from "@/components/UI/Dashboard/ProfileInformation";
 import ProfileUpdateModal from "@/components/UI/Dashboard/ProfileUpdateModal";
 import { useGetMyProfileQuery, useUpdateMyProfileMutation } from "@/redux/api/userApi";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import { Box, Button, CircularProgress, Container } from "@mui/material";
+import { Avatar, Box, Button, CircularProgress, Container } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import Image from "next/image";
 import { useState } from "react";
 
 const MyProfilePage = () => {
@@ -29,30 +29,35 @@ const MyProfilePage = () => {
       <Container
         sx={{
           mt: 4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}>
         {isLoading ? (
-          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <CircularProgress disableShrink />;
-          </Box>
+          <Loader />
         ) : (
           <Grid2 container spacing={4}>
-            <Grid2 xs={12} md={4}>
+            <Grid2
+              xs={12}
+              md={4}
+              sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
               <Box
                 sx={{
-                  height: 300,
-                  width: "100%",
-                  overflow: "hidden",
-                  borderRadius: 1,
-                  textAlign: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}>
-                <Image
-                  src={data?.avatarURL === null ? "" : data?.avatarURL}
-                  alt="profile avatar"
-                  width={300}
-                  height={300}
-                />
+                {data?.avatarURL ? (
+                  <Avatar
+                    src={data.avatarURL}
+                    alt="profile avatar"
+                    sx={{ width: 250, height: 250 }}
+                  />
+                ) : (
+                  <Avatar sx={{ width: 250, height: 250 }} />
+                )}
               </Box>
-              <Box my={1}>
+              <Box my={1} sx={{ width: "100%" }}>
                 {isUploading ? (
                   <CircularProgress disableShrink />
                 ) : (
@@ -61,14 +66,19 @@ const MyProfilePage = () => {
                     label="Choose"
                     icon={<CloudUploadIcon />}
                     onFileUpload={fileUploadHandler}
-                    variant="text"
+                    variant="contained"
                     sx={{
                       width: "100%",
                     }}
                   />
                 )}
               </Box>
-              <Button fullWidth endIcon={<ModeEditIcon />} onClick={() => setOpen(true)}>
+              <Button
+                variant="outlined"
+                fullWidth
+                endIcon={<ModeEditIcon />}
+                onClick={() => setOpen(true)}
+                sx={{ mt: 2 }}>
                 Edit My Profile
               </Button>
             </Grid2>

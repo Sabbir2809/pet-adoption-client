@@ -2,6 +2,7 @@
 import logo from "@/assets/logo.png";
 import RForm from "@/components/Forms/RForm";
 import RInput from "@/components/Forms/RInput";
+import Loader from "@/components/Shared/Loader";
 import { loginUser } from "@/services/actions/loginUser";
 import { registerUser } from "@/services/actions/registerUser";
 import { storeUserInfo } from "@/services/auth.services";
@@ -16,7 +17,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
-import { toast } from "sonner";
+import Swal from "sweetalert2";
 import { z } from "zod";
 
 // zod validation schema
@@ -46,7 +47,13 @@ const RegisterPage = () => {
       setIsLoading(false);
       // checking response
       if (res?.data?.id) {
-        toast.success(res?.message);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: res?.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
         // login server action
         const user = await loginUser({
           email: values.email,
@@ -67,53 +74,59 @@ const RegisterPage = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
-        padding: "20px",
-      }}>
-      {/* Logo */}
-      <Image src={logo} width={70} height={70} alt="logo" />
-      {/* Title */}
-      <Typography variant="h5" sx={{ mt: 4, mb: 2, textAlign: "center" }}>
-        Create a New Account
-      </Typography>
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "100vh",
+            padding: "20px",
+          }}>
+          {/* Logo */}
+          <Image src={logo} width={70} height={70} alt="logo" />
+          {/* Title */}
+          <Typography variant="h5" sx={{ mt: 4, mb: 2, textAlign: "center" }}>
+            Create a New Account
+          </Typography>
 
-      {/* Error Message */}
-      {error && (
-        <Box sx={{ width: "100%", maxWidth: "500px", mb: 1, textAlign: "center" }}>
-          <Alert severity="error" color="error">
-            {error}
-          </Alert>
+          {/* Error Message */}
+          {error && (
+            <Box sx={{ width: "100%", maxWidth: "500px", mb: 1, textAlign: "center" }}>
+              <Alert severity="error" color="error">
+                {error}
+              </Alert>
+            </Box>
+          )}
+
+          <Box sx={{ width: "100%", maxWidth: "500px" }}>
+            {/* Login Form */}
+            <RForm onSubmit={handleLogin} resolver={zodResolver(registerValidationSchema)}>
+              {/* Email Input */}
+              <RInput name="username" label="Full Name" size="medium" fullWidth sx={{ mb: 2 }} />
+              {/* Email Input */}
+              <RInput name="email" label="Email Address" size="medium" fullWidth sx={{ mb: 2 }} />
+              {/* Password Input */}
+              <RInput name="password" type="password" label="Password" fullWidth size="medium" />
+              {/* Login Button */}
+              <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>
+                Registration
+              </Button>
+              {/* Login Link */}
+              <Grid container justifyContent="center">
+                <Grid item>
+                  <Link href="/login">{"Do you already have an account? Login"}</Link>
+                </Grid>
+              </Grid>
+            </RForm>
+          </Box>
         </Box>
       )}
-
-      <Box sx={{ width: "100%", maxWidth: "500px" }}>
-        {/* Login Form */}
-        <RForm onSubmit={handleLogin} resolver={zodResolver(registerValidationSchema)}>
-          {/* Email Input */}
-          <RInput name="username" label="Full Name" size="medium" fullWidth sx={{ mb: 2 }} />
-          {/* Email Input */}
-          <RInput name="email" label="Email Address" size="medium" fullWidth sx={{ mb: 2 }} />
-          {/* Password Input */}
-          <RInput name="password" type="password" label="Password" fullWidth size="medium" />
-          {/* Login Button */}
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>
-            Login
-          </Button>
-          {/* Login Link */}
-          <Grid container justifyContent="center">
-            <Grid item>
-              <Link href="/login">{"Do you already have an account? Login"}</Link>
-            </Grid>
-          </Grid>
-        </RForm>
-      </Box>
-    </Box>
+    </>
   );
 };
 

@@ -15,7 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
-import { toast } from "sonner";
+import Swal from "sweetalert2";
 import { z } from "zod";
 
 // zod validation schema
@@ -42,7 +42,13 @@ const LoginPage = () => {
       if (res?.data?.accessToken) {
         // set user info localStorage
         storeUserInfo({ accessToken: res?.data?.accessToken });
-        toast.success(res?.message);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: res?.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } else {
         setError(res?.message);
       }
@@ -102,7 +108,7 @@ const LoginPage = () => {
               {/* Register Link */}
               <Grid container justifyContent="center">
                 <Grid item>
-                  <Link href="/register">{"Don't have an account? Register"}</Link>
+                  <Link href="/register">{"Don't have an account? Registration"}</Link>
                 </Grid>
               </Grid>
             </RForm>

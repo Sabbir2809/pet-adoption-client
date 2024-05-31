@@ -4,7 +4,6 @@ import RSelectField from "@/components/Forms/RSelectField";
 import RFullScreenModal from "@/components/Shared/RFullScreenModal";
 import { GENDER } from "@/constants/common";
 import { useUpdateMyProfileMutation } from "@/redux/api/userApi";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Grid } from "@mui/material";
 import React from "react";
 import { FieldValues } from "react-hook-form";
@@ -17,15 +16,6 @@ type TProps = {
   data: any;
 };
 
-const validationSchema = z.object({
-  username: z.string().optional(),
-  email: z.string().optional(),
-  avatarURL: z.string().optional(),
-  phone: z.string().optional(),
-  gender: z.string().optional(),
-  address: z.string().optional(),
-});
-
 const ProfileUpdateModal = ({ open, setOpen, data }: TProps) => {
   const [updateMyProfile, { isLoading }] = useUpdateMyProfileMutation();
 
@@ -33,7 +23,8 @@ const ProfileUpdateModal = ({ open, setOpen, data }: TProps) => {
     try {
       const formData = new FormData();
       formData.append("data", JSON.stringify(values));
-      const res = await updateMyProfile(formData);
+
+      const res = await updateMyProfile(formData).unwrap();
       if (res) {
         toast.success("Profile Updated Successfully");
         setOpen(false);
@@ -45,7 +36,7 @@ const ProfileUpdateModal = ({ open, setOpen, data }: TProps) => {
 
   return (
     <RFullScreenModal open={open} setOpen={setOpen} title="Update Profile">
-      <RForm onSubmit={submitHandler} defaultValues={data} resolver={zodResolver(validationSchema)}>
+      <RForm onSubmit={submitHandler} defaultValues={data}>
         <Grid container spacing={2} sx={{ my: 5 }}>
           <Grid item xs={12} sm={12} md={4}>
             <RInput name="username" label="username" sx={{ mb: 2 }} fullWidth />
