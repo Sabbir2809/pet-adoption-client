@@ -87,7 +87,7 @@ const ChangePassword = () => {
           </Grid>
         </Grid>
 
-        <Button type="submit" sx={{ width: "100%", my: 2 }}>
+        <Button type="submit" sx={{ width: "100%", my: 2 }} variant="contained">
           change Password
         </Button>
       </RForm>

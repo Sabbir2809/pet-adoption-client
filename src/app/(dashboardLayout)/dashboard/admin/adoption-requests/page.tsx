@@ -1,40 +1,15 @@
 "use client";
+import SkeletonLoader from "@/components/Shared/SkeletonLoader";
 import {
   useGetAllAdoptionRequestQuery,
   useUpdateAdoptionRequestMutation,
 } from "@/redux/api/adoptionRequestApi";
+import { TAdoptionRequestAdmin } from "@/types/adoptiop";
 import EditIcon from "@mui/icons-material/Edit";
-import {
-  Alert,
-  Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Skeleton,
-  TableCell,
-  Typography,
-} from "@mui/material";
+import { Alert, Box, IconButton, Menu, MenuItem, TableCell, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { toast } from "sonner";
-
-type TAdoption = {
-  id: string;
-  adoptionStatus: string;
-  user: {
-    username: string;
-    avatarURL: string;
-    email: string;
-    gender: string;
-    phone: string;
-    address: string;
-  };
-  pet: {
-    name: string;
-    photos: string;
-    location: string;
-  };
-};
 
 const AdoptionRequestsPage = () => {
   const [openMenu, setOpenMenu] = useState<null | HTMLElement>(null);
@@ -43,7 +18,7 @@ const AdoptionRequestsPage = () => {
   const [updateAdoptionRequest] = useUpdateAdoptionRequestMutation();
   const { data, isLoading } = useGetAllAdoptionRequestQuery(undefined);
 
-  const adoptionRequestsData = data?.map((item: TAdoption) => ({
+  const adoptionRequestsData = data?.map((item: TAdoptionRequestAdmin) => ({
     id: item.id,
     adoptionStatus: item.adoptionStatus,
     username: item.user.username,
@@ -55,8 +30,6 @@ const AdoptionRequestsPage = () => {
     photos: item.pet.photos,
     location: item.pet.location,
   }));
-
-  console.log(data);
 
   const columns: GridColDef[] = [
     { field: "name", headerName: "Pet Name", flex: 1 },
@@ -121,7 +94,7 @@ const AdoptionRequestsPage = () => {
         toast.success("Adoption Request Change Successfully!");
       }
     } catch (error: any) {
-      console.log(error);
+      console.log(error.message);
     }
     setOpenMenu(null);
   };
@@ -136,11 +109,7 @@ const AdoptionRequestsPage = () => {
         Pet Adoption Request Managements
       </Typography>
       {isLoading ? (
-        <Box sx={{ width: "100%", height: "100vh", mt: 2 }}>
-          <Skeleton />
-          <Skeleton animation="wave" />
-          <Skeleton animation={false} />
-        </Box>
+        <SkeletonLoader />
       ) : (
         <Box my={2}>
           {/* DataGrid */}
@@ -149,9 +118,9 @@ const AdoptionRequestsPage = () => {
       )}
       {/* Menu */}
       <Menu id="edit-menu" anchorEl={openMenu} open={Boolean(openMenu)} onClose={handleCloseMenu}>
-        <MenuItem onClick={() => handleMenuItemClick("PENDING")}>PENDING</MenuItem>
-        <MenuItem onClick={() => handleMenuItemClick("REJECTED")}>REJECTED</MenuItem>
-        <MenuItem onClick={() => handleMenuItemClick("APPROVED")}>APPROVED</MenuItem>
+        <MenuItem onClick={() => handleMenuItemClick("PENDING")}>Pending</MenuItem>
+        <MenuItem onClick={() => handleMenuItemClick("REJECTED")}>Rejected</MenuItem>
+        <MenuItem onClick={() => handleMenuItemClick("APPROVED")}>Approved</MenuItem>
       </Menu>
     </Box>
   );

@@ -47,7 +47,7 @@ const LoginPage = () => {
           icon: "success",
           title: res?.message,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1000,
         });
       } else {
         setError(res?.message);

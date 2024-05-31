@@ -52,7 +52,7 @@ const RegisterPage = () => {
           icon: "success",
           title: res?.message,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1000,
         });
         // login server action
         const user = await loginUser({

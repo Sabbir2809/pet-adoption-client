@@ -85,7 +85,11 @@ const MenuDrawer = ({ children }: { children: React.ReactNode }) => {
             </Box>
             <Stack direction="row" gap={3} alignItems="center">
               <Link href="/dashboard">
-                <Avatar alt={data?.username} src={data?.avatarURL} />
+                <Avatar
+                  alt={data?.username}
+                  src={data?.avatarURL}
+                  sx={{ border: "2px solid #1586FD" }}
+                />
               </Link>
               <MenuItem onClick={handleLogout}>
                 <ListItemIcon sx={{ color: "error.main" }}>

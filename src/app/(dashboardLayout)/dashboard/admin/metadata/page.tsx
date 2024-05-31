@@ -1,9 +1,11 @@
 "use client";
+import SkeletonLoader from "@/components/Shared/SkeletonLoader";
 import {
   useChangeProfileRoleMutation,
   useDashboardMetadataQuery,
   useGetAllUsersQuery,
 } from "@/redux/api/userApi";
+import { TUser } from "@/types/user";
 import EditIcon from "@mui/icons-material/Edit";
 import {
   Alert,
@@ -13,41 +15,26 @@ import {
   Menu,
   MenuItem,
   Pagination,
-  Skeleton,
   TableCell,
   Typography,
 } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useState } from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 
-const achievementCardStyle = {
+const cardStyle = {
   textAlign: "center",
   p: 3,
   borderRadius: 2,
-  bgcolor: "primary.main",
-  color: "primary.contrastText",
   height: "100%",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   boxShadow: "0px 3px 10px rgba(0, 0, 0, 0.2)",
-  transition: "transform 0.3s ease-in-out",
+  transition: "transform 0.2s ease-in-out",
   "&:hover": {
-    transform: "scale(1.05)",
+    transform: "scale(1.03)",
   },
-};
-
-type TUser = {
-  id: string;
-  username: string;
-  avatarURL: string;
-  role: string;
-  isActive: boolean;
-  email: string;
-  gender: string;
-  phone: string;
-  address: string;
 };
 
 const MetadataPage = () => {
@@ -56,9 +43,7 @@ const MetadataPage = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
 
-  const query: Record<string, any> = {};
-  query["page"] = page;
-  query["limit"] = limit;
+  const query: Record<string, any> = { page, limit };
 
   const { data: dashboardMetadata } = useDashboardMetadataQuery(undefined);
 
@@ -66,15 +51,13 @@ const MetadataPage = () => {
   const { data, isLoading } = useGetAllUsersQuery({ ...query });
 
   const meta = data?.meta;
-  let pageCount: number;
-  if (meta?.total) {
-    pageCount = Math.ceil(meta?.total / limit);
-  }
+  const pageCount = meta ? Math.ceil(meta.total / limit) : 0;
+
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 
-  const usersData = data?.users.map((item: TUser) => ({
+  const usersData = data?.users?.map((item: TUser) => ({
     id: item.id,
     isActive: item.isActive,
     username: item.username,
@@ -88,15 +71,13 @@ const MetadataPage = () => {
   const columns: GridColDef[] = [
     { field: "username", headerName: "Name", flex: 1 },
     { field: "email", headerName: "Email", flex: 1 },
-    { field: "address", headerName: "Address", flex: 1 },
-    { field: "phone", headerName: "Phone", flex: 1 },
     {
       field: "role",
       headerName: "User Role",
       flex: 1,
       renderCell: (params) => (
         <TableCell>
-          <Alert severity="success">{params.value}</Alert>
+          <Alert severity={params.value === "ADMIN" ? "success" : "info"}>{params.value}</Alert>
         </TableCell>
       ),
     },
@@ -106,34 +87,31 @@ const MetadataPage = () => {
       flex: 1,
       headerAlign: "center",
       align: "center",
-      renderCell: ({ row }) => {
-        return (
-          <Box justifyContent="center">
-            <IconButton aria-label="edit" onClick={(event) => handleMenuClick(event, row.id)}>
-              <EditIcon />
-            </IconButton>
-          </Box>
-        );
-      },
+      renderCell: ({ row }) => (
+        <IconButton aria-label="edit" onClick={(event) => handleMenuClick(event, row.id)}>
+          <EditIcon />
+        </IconButton>
+      ),
     },
   ];
 
-  // handle role change
-  const handleMenuClick = async (event: React.MouseEvent<HTMLButtonElement>, id: string) => {
+  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>, id: string) => {
     setOpenMenu(event.currentTarget);
     setSelectedId(id);
   };
+
   const handleMenuItemClick = async (role: string) => {
     try {
-      const res = await changeProfileRole({ id: selectedId, role: role }).unwrap();
+      const res = await changeProfileRole({ id: selectedId, role }).unwrap();
       if (res?.id) {
-        toast.success("Adoption Request Change Successfully!");
+        toast.success("Profile role changed successfully!");
       }
-    } catch (error: any) {
-      console.log(error);
+    } catch (error) {
+      console.error(error);
     }
     setOpenMenu(null);
   };
+
   const handleCloseMenu = () => {
     setOpenMenu(null);
   };
@@ -141,12 +119,12 @@ const MetadataPage = () => {
   return (
     <Box>
       <Typography variant="h5" sx={{ my: 2 }}>
-        Dashboard Managements
+        Dashboard Management
       </Typography>
       <Box sx={{ maxWidth: "100%" }}>
         <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} md={4}>
-            <Box sx={{ ...achievementCardStyle }}>
+            <Box sx={{ ...cardStyle }}>
               <Typography variant="h4" gutterBottom>
                 {dashboardMetadata?.petCount}
               </Typography>
@@ -154,7 +132,7 @@ const MetadataPage = () => {
             </Box>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Box sx={{ ...achievementCardStyle }}>
+            <Box sx={{ ...cardStyle }}>
               <Typography variant="h4" gutterBottom>
                 1
               </Typography>
@@ -162,7 +140,7 @@ const MetadataPage = () => {
             </Box>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Box sx={{ ...achievementCardStyle }}>
+            <Box sx={{ ...cardStyle }}>
               <Typography variant="h4" gutterBottom>
                 {dashboardMetadata?.userCount}
               </Typography>
@@ -173,14 +151,9 @@ const MetadataPage = () => {
       </Box>
       <Box>
         {isLoading ? (
-          <Box sx={{ width: "100%", height: "100vh", mt: 2 }}>
-            <Skeleton />
-            <Skeleton animation="wave" />
-            <Skeleton animation={false} />
-          </Box>
+          <SkeletonLoader />
         ) : (
           <Box my={2}>
-            {/* DataGrid */}
             <DataGrid
               rows={usersData || []}
               columns={columns}
@@ -200,7 +173,6 @@ const MetadataPage = () => {
             />
           </Box>
         )}
-        {/* Menu */}
         <Menu id="edit-menu" anchorEl={openMenu} open={Boolean(openMenu)} onClose={handleCloseMenu}>
           <MenuItem onClick={() => handleMenuItemClick("ADMIN")}>Admin</MenuItem>
           <MenuItem onClick={() => handleMenuItemClick("USER")}>User</MenuItem>

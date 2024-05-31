@@ -51,7 +51,7 @@ const MyProfilePage = () => {
                   <Avatar
                     src={data.avatarURL}
                     alt="profile avatar"
-                    sx={{ width: 250, height: 250 }}
+                    sx={{ width: 250, height: 250, border: "2px solid #1586FD" }}
                   />
                 ) : (
                   <Avatar sx={{ width: 250, height: 250 }} />

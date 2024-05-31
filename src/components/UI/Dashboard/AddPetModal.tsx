@@ -39,50 +39,45 @@ const AddPetModal = ({ open, setOpen }: TProps) => {
     <RFullScreenModal open={open} setOpen={setOpen} title="Add a New Pet Profile">
       <RForm onSubmit={submitHandler}>
         <Grid container spacing={2} sx={{ my: 5 }}>
-          <Grid item xs={12} sm={12} md={4}>
-            <RInput name="name" label="Name" sx={{ mb: 2 }} fullWidth />
+          <Grid item xs={12} sm={12} md={6}>
+            <RInput name="name" label="Name" fullWidth />
           </Grid>
-          <Grid item xs={12} sm={12} md={4}>
-            <RFileUploader name="file" label="Upload File" />
+          <Grid item xs={12} sm={12} md={6}>
+            <RFileUploader name="file" label="Upload File" sx={{ width: "100%" }} />
           </Grid>
-          <Grid item xs={12} sm={12} md={4}>
-            <RInput name="description" label="Description" sx={{ mb: 2 }} fullWidth />
+          <Grid item xs={12} sm={12} md={6}>
+            <RInput name="description" label="Description" fullWidth />
           </Grid>
-          <Grid item xs={12} sm={12} md={4}>
-            <RInput name="age" label="Age" sx={{ mb: 2 }} fullWidth />
+          <Grid item xs={12} sm={12} md={6}>
+            <RInput name="age" label="Age" fullWidth />
           </Grid>
-          <Grid item xs={12} sm={12} md={4}>
-            <RInput name="breed" label="Breed" sx={{ mb: 2 }} fullWidth />
+          <Grid item xs={12} sm={12} md={6}>
+            <RInput name="breed" label="Breed" fullWidth />
           </Grid>
-          <Grid item xs={12} sm={12} md={4}>
-            <RSelectField items={GENDER} name="gender" label="Gender" sx={{ mb: 2 }} fullWidth />
+          <Grid item xs={12} sm={12} md={6}>
+            <RSelectField items={GENDER} name="gender" label="Gender" fullWidth />
           </Grid>
-          <Grid item xs={12} sm={12} md={4}>
-            <RInput name="species" label="Species" sx={{ mb: 2 }} fullWidth />
+          <Grid item xs={12} sm={12} md={6}>
+            <RInput name="species" label="Species" fullWidth />
           </Grid>
-          <Grid item xs={12} sm={12} md={4}>
-            <RSelectField items={SIZE} name="size" label="size" sx={{ mb: 2 }} fullWidth />
+          <Grid item xs={12} sm={12} md={6}>
+            <RSelectField items={SIZE} name="size" label="size" fullWidth />
           </Grid>
-          <Grid item xs={12} sm={12} md={4}>
-            <RInput name="location" label="Location" sx={{ mb: 2 }} fullWidth />
+          <Grid item xs={12} sm={12} md={6}>
+            <RInput name="location" label="Location" fullWidth />
           </Grid>
-          <Grid item xs={12} sm={12} md={4}>
-            <RInput name="temperament" label="Temperament" sx={{ mb: 2 }} fullWidth />
+          <Grid item xs={12} sm={12} md={6}>
+            <RInput name="temperament" label="Temperament" fullWidth />
           </Grid>
-          <Grid item xs={12} sm={12} md={4}>
-            <RInput name="medicalHistory" label="MedicalHistory" sx={{ mb: 2 }} fullWidth />
+          <Grid item xs={12} sm={12} md={6}>
+            <RInput name="medicalHistory" label="MedicalHistory" fullWidth />
           </Grid>
-          <Grid item xs={12} sm={12} md={4}>
-            <RInput
-              name="adoptionRequirements"
-              label="Adoption Requirements"
-              sx={{ mb: 2 }}
-              fullWidth
-            />
+          <Grid item xs={12} sm={12} md={6}>
+            <RInput name="adoptionRequirements" label="Adoption Requirements" fullWidth />
           </Grid>
         </Grid>
-        <Button type="submit" variant="outlined">
-          Add
+        <Button type="submit" variant="contained">
+          Add New Pet
         </Button>
       </RForm>
     </RFullScreenModal>

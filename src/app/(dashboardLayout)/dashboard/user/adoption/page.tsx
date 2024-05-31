@@ -1,26 +1,16 @@
 "use client";
+import SkeletonLoader from "@/components/Shared/SkeletonLoader";
 import { useGetMyProfileQuery } from "@/redux/api/userApi";
-import { Alert, Box, Skeleton, TableCell, Typography } from "@mui/material";
+import { TAdoptionRequestUser } from "@/types/adoptiop";
+import { Alert, Box, TableCell, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 
-type TAdoption = {
-  id: string;
-  adoptionStatus: string;
-  pet: {
-    name: string;
-    photos: string;
-    location: string;
-    gender: string;
-    age: number;
-  };
-};
-
 const AdoptionPage = () => {
   const { data, isLoading } = useGetMyProfileQuery(undefined);
-  const adoptionData = data?.adoptionRequests;
+  const adoptionRequests = data?.adoptionRequests;
 
-  const transformedData = adoptionData?.map((item: TAdoption) => ({
+  const adoptionRequestsData = adoptionRequests?.map((item: TAdoptionRequestUser) => ({
     id: item.id,
     adoptionStatus: item.adoptionStatus,
     name: item.pet.name,
@@ -71,15 +61,11 @@ const AdoptionPage = () => {
         My Adoption Request
       </Typography>
       {isLoading ? (
-        <Box sx={{ width: "100%", height: "100vh", mt: 2 }}>
-          <Skeleton />
-          <Skeleton animation="wave" />
-          <Skeleton animation={false} />
-        </Box>
+        <SkeletonLoader />
       ) : (
         <Box my={2}>
           {/* DataGrid */}
-          <DataGrid rows={transformedData || []} columns={columns} hideFooter={true} />
+          <DataGrid rows={adoptionRequestsData || []} columns={columns} hideFooter={true} />
         </Box>
       )}
     </Box>
