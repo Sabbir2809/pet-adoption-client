@@ -4,11 +4,11 @@ import RSelectField from "@/components/Forms/RSelectField";
 import RFullScreenModal from "@/components/Shared/RFullScreenModal";
 import { GENDER } from "@/constants/common";
 import { useUpdateMyProfileMutation } from "@/redux/api/userApi";
+import sweetAlert from "@/utils/SweetAlert";
 import { Button, Grid } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { FieldValues } from "react-hook-form";
-import { toast } from "sonner";
 
 type TProps = {
   open: boolean;
@@ -30,7 +30,7 @@ const ProfileUpdateModal = ({ open, setOpen, data }: TProps) => {
 
       const res = await updateMyProfile(formData).unwrap();
       if (res?.id) {
-        toast.success("Profile Updated Successfully");
+        sweetAlert("Profile Updated Successfully", "success");
         setOpen(false);
         router.push("/dashboard");
       }

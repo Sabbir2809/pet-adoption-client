@@ -5,10 +5,10 @@ import RSelectField from "@/components/Forms/RSelectField";
 import RFullScreenModal from "@/components/Shared/RFullScreenModal";
 import { GENDER, SIZE } from "@/constants/common";
 import { useAddPetProfileMutation } from "@/redux/api/petApi";
+import sweetAlert from "@/utils/SweetAlert";
 import { Button, Grid } from "@mui/material";
 import React from "react";
 import { FieldValues } from "react-hook-form";
-import { toast } from "sonner";
 
 type TProps = {
   open: boolean;
@@ -27,7 +27,7 @@ const AddPetModal = ({ open, setOpen }: TProps) => {
     try {
       const res = await addPetProfile(formData).unwrap();
       if (res?.id) {
-        toast.success("Add New Pet Successfully");
+        sweetAlert("Add New Pet Successfully", "success");
         setOpen(false);
       }
     } catch (error) {

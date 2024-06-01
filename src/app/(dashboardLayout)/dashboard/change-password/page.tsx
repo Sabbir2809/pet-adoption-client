@@ -2,12 +2,12 @@
 import RForm from "@/components/Forms/RForm";
 import RInput from "@/components/Forms/RInput";
 import { useChangePasswordMutation } from "@/redux/api/authApi";
+import sweetAlert from "@/utils/SweetAlert";
 import { zodResolver } from "@hookform/resolvers/zod";
 import KeyIcon from "@mui/icons-material/Key";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 
 const validationSchema = z.object({
@@ -23,10 +23,10 @@ const ChangePassword = () => {
     try {
       const res = await changePassword(values).unwrap();
       if (res) {
-        toast.success("Password Changed Successfully");
+        sweetAlert("Password Change Successfully", "success");
         router.push("/dashboard");
       } else {
-        return toast.error("Incorrect Old Password");
+        sweetAlert("Incorrect Old Password", "error");
       }
     } catch (error: any) {
       console.log(error.message);

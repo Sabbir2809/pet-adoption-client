@@ -3,9 +3,9 @@ import RInput from "@/components/Forms/RInput";
 import RModal from "@/components/Shared/RModal";
 import { useSubmitAdoptionRequestMutation } from "@/redux/api/adoptionRequestApi";
 import { getUserInfo } from "@/services/auth.services";
+import sweetAlert from "@/utils/SweetAlert";
 import { Button } from "@mui/material";
 import { FieldValues } from "react-hook-form";
-import { toast } from "sonner";
 
 type TProps = {
   open: boolean;
@@ -28,7 +28,7 @@ const AdoptionRequestModal = ({ open, setOpen, petId }: TProps) => {
     try {
       const res = await submitAdoptionRequest(adoptionRequestBody).unwrap();
       if (res?.id) {
-        toast.success("Adoption Request Successfully Submitted");
+        sweetAlert("Adoption Request Submitted Successfully", "success");
         setOpen(false);
       }
     } catch (error) {

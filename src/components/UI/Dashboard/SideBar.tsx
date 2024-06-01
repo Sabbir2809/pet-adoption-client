@@ -18,7 +18,7 @@ const SideBar = () => {
   }, []);
 
   return (
-    <Box>
+    <Box sx={{ background: "#F4F7FE", height: "100%" }}>
       <Stack
         direction="row"
         justifyContent="center"

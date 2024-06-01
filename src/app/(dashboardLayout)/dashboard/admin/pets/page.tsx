@@ -2,6 +2,7 @@
 import AddPetModal from "@/components/UI/Dashboard/AddPetModal";
 import { useDeletePetProfileMutation, useGetAllPetsQuery } from "@/redux/api/petApi";
 import { TPet } from "@/types/pet";
+import sweetAlert from "@/utils/SweetAlert";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -10,7 +11,6 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { toast } from "sonner";
 
 const PetsPage = () => {
   const [open, setOpen] = useState(false);
@@ -48,11 +48,10 @@ const PetsPage = () => {
 
   // handle delete
   const handleDelete = async (id: string) => {
-    console.log(id);
     try {
-      const res = await deletePetProfile(id);
-      if (res) {
-        toast.success("Deleted Successfully!");
+      const res = await deletePetProfile(id).unwrap();
+      if (res?.id) {
+        sweetAlert("Pet Delete Successfully", "success");
       }
     } catch (error: any) {
       console.log(error.message);

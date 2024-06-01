@@ -4,7 +4,7 @@ import { useGetMyProfileQuery } from "@/redux/api/userApi";
 import deleteCookies from "@/services/actions/deleteCookies";
 import { Logout } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Avatar, ListItemIcon, MenuItem, Stack } from "@mui/material";
+import { Avatar, Stack } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -91,12 +91,13 @@ const MenuDrawer = ({ children }: { children: React.ReactNode }) => {
                   sx={{ border: "2px solid #1586FD" }}
                 />
               </Link>
-              <MenuItem onClick={handleLogout}>
-                <ListItemIcon sx={{ color: "error.main" }}>
-                  <Logout fontSize="small" />
-                  Logout
-                </ListItemIcon>
-              </MenuItem>
+              <Typography onClick={handleLogout}>
+                <Logout
+                  fontSize="medium"
+                  color="primary"
+                  sx={{ "&:hover": { cursor: "pointer", color: "red" } }}
+                />
+              </Typography>
             </Stack>
           </Box>
         </Toolbar>

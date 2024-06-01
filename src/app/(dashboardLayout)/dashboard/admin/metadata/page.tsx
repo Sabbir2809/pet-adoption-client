@@ -6,6 +6,7 @@ import {
   useGetAllUsersQuery,
 } from "@/redux/api/userApi";
 import { TUser } from "@/types/user";
+import sweetAlert from "@/utils/SweetAlert";
 import EditIcon from "@mui/icons-material/Edit";
 import {
   Alert,
@@ -20,7 +21,6 @@ import {
 } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React, { useState } from "react";
-import { toast } from "sonner";
 
 const cardStyle = {
   textAlign: "center",
@@ -104,7 +104,7 @@ const MetadataPage = () => {
     try {
       const res = await changeProfileRole({ id: selectedId, role }).unwrap();
       if (res?.id) {
-        toast.success("Profile role changed successfully!");
+        sweetAlert("Change Profile Role Successfully", "success");
       }
     } catch (error) {
       console.error(error);

@@ -6,6 +6,7 @@ import Loader from "@/components/Shared/Loader";
 import { loginUser } from "@/services/actions/loginUser";
 import { registerUser } from "@/services/actions/registerUser";
 import { storeUserInfo } from "@/services/auth.services";
+import sweetAlert from "@/utils/SweetAlert";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Alert } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -17,7 +18,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
-import Swal from "sweetalert2";
 import { z } from "zod";
 
 // zod validation schema
@@ -47,13 +47,7 @@ const RegisterPage = () => {
       setIsLoading(false);
       // checking response
       if (res?.data?.id) {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: res?.message,
-          showConfirmButton: false,
-          timer: 1000,
-        });
+        sweetAlert(res?.message, "success");
         // login server action
         const user = await loginUser({
           email: values.email,
@@ -85,12 +79,11 @@ const RegisterPage = () => {
             alignItems: "center",
             justifyContent: "center",
             minHeight: "100vh",
-            padding: "20px",
           }}>
           {/* Logo */}
           <Image src={logo} width={70} height={70} alt="logo" />
           {/* Title */}
-          <Typography variant="h5" sx={{ mt: 4, mb: 2, textAlign: "center" }}>
+          <Typography variant="h4" sx={{ mt: 2, mb: 2, textAlign: "center" }}>
             Create a New Account
           </Typography>
 

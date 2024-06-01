@@ -4,10 +4,10 @@ import RInput from "@/components/Forms/RInput";
 import RSelectField from "@/components/Forms/RSelectField";
 import { GENDER, SIZE } from "@/constants/common";
 import { useGetPetDetailsQuery, useUpdatePetProfileMutation } from "@/redux/api/petApi";
+import sweetAlert from "@/utils/SweetAlert";
 import { Box, Button, Grid, Skeleton, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
-import { toast } from "sonner";
 
 type TParams = {
   params: {
@@ -32,7 +32,7 @@ const UpdatePet = ({ params }: TParams) => {
     try {
       const res = await updatePetProfile(body).unwrap();
       if (res?.id) {
-        toast.success("Update Pet Successfully");
+        sweetAlert("Pet Profile Update Successfully", "success");
         router.push(`/dashboard/admin/pets`);
       }
     } catch (error) {

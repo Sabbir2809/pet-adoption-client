@@ -5,11 +5,11 @@ import {
   useUpdateAdoptionRequestMutation,
 } from "@/redux/api/adoptionRequestApi";
 import { TAdoptionRequestAdmin } from "@/types/adoptiop";
+import sweetAlert from "@/utils/SweetAlert";
 import EditIcon from "@mui/icons-material/Edit";
 import { Alert, Box, IconButton, Menu, MenuItem, TableCell, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
-import { toast } from "sonner";
 
 const AdoptionRequestsPage = () => {
   const [openMenu, setOpenMenu] = useState<null | HTMLElement>(null);
@@ -61,8 +61,8 @@ const AdoptionRequestsPage = () => {
       ),
     },
     {
-      field: "action",
-      headerName: "Action",
+      field: "changeStatus",
+      headerName: "Change Status",
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -91,7 +91,7 @@ const AdoptionRequestsPage = () => {
     try {
       const res = await updateAdoptionRequest(body).unwrap();
       if (res?.id) {
-        toast.success("Adoption Request Change Successfully!");
+        sweetAlert("Adoption Request Update Successfully", "success");
       }
     } catch (error: any) {
       console.log(error.message);
