@@ -12,6 +12,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const PetsPage = () => {
   const [open, setOpen] = useState(false);
@@ -47,16 +48,28 @@ const PetsPage = () => {
     location: item.location,
   }));
 
-  // handle delete
+  // handle delete with confirmation
   const handleDelete = async (id: string) => {
-    try {
-      const res = await deletePetProfile(id).unwrap();
-      if (res?.id) {
-        sweetAlert("Pet Delete Successfully", "success");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await deletePetProfile(id).unwrap();
+          if (res?.id) {
+            sweetAlert("Your pet profile has been deleted.", "success");
+          }
+        } catch (error: any) {
+          console.log(error.message);
+        }
       }
-    } catch (error: any) {
-      console.log(error.message);
-    }
+    });
   };
 
   const columns: GridColDef[] = [
@@ -98,7 +111,7 @@ const PetsPage = () => {
   return (
     <Box>
       <Typography variant="h5" sx={{ my: 2 }}>
-        Pets Managements
+        Pets Management
       </Typography>
       <AddPetModal open={open} setOpen={setOpen} />
       <Button startIcon={<AddIcon />} variant="contained" onClick={() => setOpen(true)}>
