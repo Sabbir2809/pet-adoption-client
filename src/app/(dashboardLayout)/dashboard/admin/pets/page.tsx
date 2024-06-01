@@ -1,12 +1,13 @@
 "use client";
+import SkeletonLoader from "@/components/Shared/SkeletonLoader";
 import AddPetModal from "@/components/UI/Dashboard/AddPetModal";
 import { useDeletePetProfileMutation, useGetAllPetsQuery } from "@/redux/api/petApi";
 import { TPet } from "@/types/pet";
 import sweetAlert from "@/utils/SweetAlert";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { Box, Button, IconButton, Pagination, Skeleton, Typography } from "@mui/material";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import { Box, Button, IconButton, Pagination, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 import Link from "next/link";
@@ -81,11 +82,11 @@ const PetsPage = () => {
         return (
           <Box justifyContent="center">
             <IconButton aria-label="delete" onClick={() => handleDelete(row.id)}>
-              <DeleteIcon sx={{ color: "red" }} />
+              <DeleteIcon color="warning" />
             </IconButton>
             <Link href={`/dashboard/admin/pets/edit/${row.id}`}>
               <IconButton aria-label="edit">
-                <EditIcon sx={{}} />
+                <EditNoteIcon color="info" fontSize="large" />
               </IconButton>
             </Link>
           </Box>
@@ -104,11 +105,7 @@ const PetsPage = () => {
         Add New Pet
       </Button>
       {isLoading ? (
-        <Box sx={{ width: "100%", height: "100vh", mt: 2 }}>
-          <Skeleton />
-          <Skeleton animation="wave" />
-          <Skeleton animation={false} />
-        </Box>
+        <SkeletonLoader />
       ) : (
         <Box my={2}>
           <DataGrid

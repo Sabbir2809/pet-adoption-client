@@ -6,7 +6,7 @@ import {
 } from "@/redux/api/adoptionRequestApi";
 import { TAdoptionRequestAdmin } from "@/types/adoptiop";
 import sweetAlert from "@/utils/SweetAlert";
-import EditIcon from "@mui/icons-material/Edit";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 import { Alert, Box, IconButton, Menu, MenuItem, TableCell, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
@@ -70,7 +70,7 @@ const AdoptionRequestsPage = () => {
         return (
           <Box justifyContent="center">
             <IconButton aria-label="edit" onClick={(event) => handleMenuClick(event, row.id)}>
-              <EditIcon />
+              <EditNoteIcon color="info" fontSize="large" />
             </IconButton>
           </Box>
         );

@@ -7,7 +7,7 @@ import {
 } from "@/redux/api/userApi";
 import { TUser } from "@/types/user";
 import sweetAlert from "@/utils/SweetAlert";
-import EditIcon from "@mui/icons-material/Edit";
+import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
 import {
   Alert,
   Box,
@@ -83,13 +83,13 @@ const MetadataPage = () => {
     },
     {
       field: "action",
-      headerName: "Action",
+      headerName: "Change Role",
       flex: 1,
       headerAlign: "center",
       align: "center",
       renderCell: ({ row }) => (
         <IconButton aria-label="edit" onClick={(event) => handleMenuClick(event, row.id)}>
-          <EditIcon />
+          <PublishedWithChangesIcon color="info" fontSize="large" />
         </IconButton>
       ),
     },
