@@ -1,9 +1,9 @@
 import heroImg from "@/assets/pet.jpg";
-import { Button, Stack, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
+import GlobalSearch from "../GlobalSearch";
 
 const HeroSection = () => {
   return (
@@ -28,49 +28,51 @@ const HeroSection = () => {
             flexDirection: { xs: "column", md: "row" },
             alignItems: "center",
             justifyContent: "space-between",
+            width: "100%",
           }}>
-          <Box>
+          <Box
+            sx={{
+              textAlign: { xs: "center", md: "left" },
+              maxWidth: { xs: "100%", md: "50%" },
+              mb: { xs: 4, md: 0 },
+            }}>
             <Typography
               variant="h2"
               sx={{
-                fontSize: "clamp(3.5rem, 10vw, 4rem)",
+                fontSize: "clamp(2.5rem, 8vw, 4rem)",
               }}>
               Make Your New&nbsp;
               <Typography
                 component="span"
                 variant="h2"
                 sx={{
-                  fontSize: "clamp(3rem, 10vw, 4rem)",
+                  fontSize: "clamp(2.5rem, 8vw, 4rem)",
                   color: "primary.main",
                   fontWeight: "600",
                 }}>
                 Friends
               </Typography>
             </Typography>
-            <Typography color="text.secondary" component="p">
+            <Typography color="text.secondary" component="p" sx={{ mt: 2 }}>
               The Pet Adoption website is a comprehensive platform designed to facilitate the
               adoption of pets by connecting potential adopters with available animals.
             </Typography>
-            <Stack
-              direction={{ xs: "column", sm: "row" }}
-              alignSelf="center"
-              spacing={1}
-              useFlexGap
-              sx={{ pt: 2, width: { xs: "100%", sm: "auto" } }}>
-              <TextField
-                hiddenLabel
-                size="medium"
-                variant="outlined"
-                placeholder="Search Pets"
-                fullWidth
-              />
-              <Button variant="contained" color="primary">
-                Search
-              </Button>
-            </Stack>
+            <GlobalSearch />
           </Box>
-          <Box>
-            <Image src={heroImg} alt="adopt do not shop" width={450} />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              width: { xs: "100%", md: "50%" },
+            }}>
+            <Image
+              src={heroImg}
+              alt="adopt do not shop"
+              layout="responsive"
+              width={450}
+              height={450}
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
           </Box>
         </Box>
       </Container>

@@ -14,7 +14,7 @@ import Link from "next/link";
 
 const PetsPage = async () => {
   const res = await fetch("https://adoptify-server-j9m1.onrender.com/api/v1/pets", {
-    next: { revalidate: 30 },
+    cache: "no-store",
   });
   const { data: pets } = await res.json();
 
