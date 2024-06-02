@@ -41,9 +41,10 @@ const AdoptionRequestModal = ({ open, setOpen, petId }: TProps) => {
       <RForm onSubmit={submitHandler}>
         <RInput
           name="petOwnershipExperience"
-          label="Pet Ownership Experience"
+          label="Pet Ownership Experience Year"
           sx={{ mb: 2 }}
           fullWidth
+          required
         />
         <RInput name="additionalInfo" label="Additional Information" sx={{ mb: 2 }} fullWidth />
         <Button type="submit" variant="contained">

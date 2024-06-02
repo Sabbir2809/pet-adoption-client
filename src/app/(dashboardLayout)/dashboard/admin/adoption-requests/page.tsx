@@ -48,7 +48,7 @@ const AdoptionRequestsPage = () => {
             severity={
               params.value === "PENDING"
                 ? "info"
-                : params.value === "REJECT"
+                : params.value === "REJECTED"
                 ? "error"
                 : params.value === "APPROVED"
                 ? "success"
