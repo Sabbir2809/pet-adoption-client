@@ -40,7 +40,7 @@ const MenuDrawer = ({ children }: { children: React.ReactNode }) => {
 
   const handleLogout = () => {
     localStorage.removeItem(authKey);
-    deleteCookies([authKey, "refreshToken"]);
+    deleteCookies([authKey, "accessToken"]);
     window.location.href = "/login";
   };
 
