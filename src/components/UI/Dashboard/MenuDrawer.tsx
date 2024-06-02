@@ -75,11 +75,11 @@ const MenuDrawer = ({ children }: { children: React.ReactNode }) => {
             }}>
             <Box>
               <Typography
-                variant="body2"
+                variant="subtitle1"
                 noWrap
                 component="div"
                 sx={{ color: "rgba(11, 17, 52, 0.6)" }}>
-                Hi, {isLoading ? "Loading..." : data?.username},
+                Hi, {isLoading ? "Loading..." : data?.username}
               </Typography>
               <Typography sx={{ color: "primary.main" }}>Welcome to Adoptify</Typography>
             </Box>

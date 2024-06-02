@@ -45,7 +45,7 @@ const PetDetailsPage = ({ params }: TParams) => {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ marginTop: "100px", minHeight: "100vh" }}>
+    <Container maxWidth="lg" sx={{ marginTop: "100px", marginBottom: "100px", minHeight: "100vh" }}>
       {isLoading ? (
         <Loader />
       ) : (

@@ -19,8 +19,8 @@ const HeroSection = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          pt: { xs: 14, sm: 20 },
-          pb: { xs: 8, sm: 12 },
+          pt: { xs: 12, sm: 14 },
+          pb: { xs: 6, sm: 8 },
         }}>
         <Box
           sx={{
@@ -69,9 +69,8 @@ const HeroSection = () => {
               src={heroImg}
               alt="adopt do not shop"
               layout="responsive"
-              width={450}
-              height={450}
-              style={{ maxWidth: "100%", height: "auto" }}
+              width={400}
+              height={400}
             />
           </Box>
         </Box>

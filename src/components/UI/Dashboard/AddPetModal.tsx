@@ -40,34 +40,34 @@ const AddPetModal = ({ open, setOpen }: TProps) => {
       <RForm onSubmit={submitHandler}>
         <Grid container spacing={2} sx={{ my: 5 }}>
           <Grid item xs={12} sm={12} md={6}>
-            <RInput name="name" label="Name" fullWidth />
+            <RInput name="name" label="Name" fullWidth required />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <RFileUploader name="file" label="Upload File" sx={{ width: "100%" }} />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <RInput name="description" label="Description" fullWidth />
+            <RInput name="description" label="Description" fullWidth required />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <RInput name="age" label="Age" fullWidth />
+            <RInput name="age" label="Age" fullWidth required />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <RInput name="breed" label="Breed" fullWidth />
+            <RInput name="breed" label="Breed" fullWidth required />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <RSelectField items={GENDER} name="gender" label="Gender" fullWidth />
+            <RSelectField items={GENDER} name="gender" label="Gender" fullWidth required />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <RInput name="species" label="Species" fullWidth />
+            <RInput name="species" label="Species" fullWidth required />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <RSelectField items={SIZE} name="size" label="size" fullWidth />
+            <RSelectField items={SIZE} name="size" label="size" fullWidth required />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <RInput name="location" label="Location" fullWidth />
+            <RInput name="location" label="Location" fullWidth required />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <RInput name="temperament" label="Temperament" fullWidth />
+            <RInput name="temperament" label="Temperament" fullWidth required />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <RInput name="medicalHistory" label="MedicalHistory" fullWidth />

@@ -20,6 +20,7 @@ import { useState } from "react";
 
 const GlobalSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [showResults, setShowResults] = useState(false);
   const debouncedTerm = useDebounced({
     searchQuery: searchTerm,
     delay: 800,
@@ -29,6 +30,10 @@ const GlobalSearch = () => {
     searchTerm: debouncedTerm,
   });
   const pets = data?.pets;
+
+  const handleSearchClick = () => {
+    setShowResults(true);
+  };
 
   return (
     <>
@@ -43,15 +48,15 @@ const GlobalSearch = () => {
           hiddenLabel
           size="medium"
           variant="outlined"
-          placeholder="Search Pets"
+          placeholder="Search Your Pets"
           fullWidth
         />
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={handleSearchClick}>
           Search
         </Button>
       </Stack>
       <Container>
-        {searchTerm && (
+        {showResults && searchTerm && (
           <Grid container spacing={4}>
             {pets?.map((pet: TPet) => (
               <Grid item key={pet.id} xs={12} sm={6} md={4}>
@@ -76,13 +81,13 @@ const GlobalSearch = () => {
                       {pet.name}
                     </Typography>
                   </CardContent>
-                  <CardActions sx={{ mt: "auto", px: 2, pb: 2 }}>
+                  <CardActions sx={{ mt: "auto", px: 1, pb: 1 }}>
                     <Button
                       component={Link}
                       href={`/pets/${pet.id}`}
                       variant="contained"
                       sx={{ width: "100%" }}>
-                      View Details
+                      Details
                     </Button>
                   </CardActions>
                 </Card>

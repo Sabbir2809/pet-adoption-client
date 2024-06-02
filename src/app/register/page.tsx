@@ -81,7 +81,7 @@ const RegisterPage = () => {
             minHeight: "100vh",
           }}>
           {/* Logo */}
-          <Image src={logo} width={70} height={70} alt="logo" />
+          <Image src={logo} width={80} height={80} alt="logo" />
           {/* Title */}
           <Typography variant="h4" sx={{ mt: 2, mb: 2, textAlign: "center" }}>
             Create a New Account

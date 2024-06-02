@@ -2,10 +2,11 @@
 import RForm from "@/components/Forms/RForm";
 import RInput from "@/components/Forms/RInput";
 import RSelectField from "@/components/Forms/RSelectField";
+import SkeletonLoader from "@/components/Shared/SkeletonLoader";
 import { GENDER, SIZE } from "@/constants/common";
 import { useGetPetDetailsQuery, useUpdatePetProfileMutation } from "@/redux/api/petApi";
 import sweetAlert from "@/utils/SweetAlert";
-import { Box, Button, Grid, Skeleton, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 
@@ -43,14 +44,10 @@ const UpdatePet = ({ params }: TParams) => {
   return (
     <Box>
       <Typography component="h5" variant="h5">
-        Update Pet Information
+        Update Pet Profile Information
       </Typography>
       {isLoading ? (
-        <Box sx={{ width: "100%", height: "100vh", mt: 2 }}>
-          <Skeleton />
-          <Skeleton animation="wave" />
-          <Skeleton animation={false} />
-        </Box>
+        <SkeletonLoader />
       ) : (
         <RForm onSubmit={submitHandler} defaultValues={data}>
           <Grid container spacing={2} sx={{ my: 5 }}>

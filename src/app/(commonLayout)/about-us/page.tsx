@@ -163,12 +163,12 @@ const AboutUs = () => {
             Have questions? Reach out to us via email or phone.
           </Typography>
           <Box sx={{ display: "flex", gap: 2 }}>
-            <Link href="mailto:contact@example.com" color="inherit" underline="none">
+            <Link href="mailto:adoptify@gmail.com" color="inherit" underline="none">
               <IconButton color="primary" aria-label="email">
                 <Email />
               </IconButton>
             </Link>
-            <Link href="tel:+1234567890" color="inherit" underline="none">
+            <Link href="tel:+8801829723692" color="inherit" underline="none">
               <IconButton color="primary" aria-label="phone">
                 <Phone />
               </IconButton>

@@ -21,6 +21,10 @@ const SkeletonLoader = () => {
       <Skeleton />
       <Skeleton animation="wave" />
       <Skeleton animation={false} />
+      <Skeleton />
+      <Skeleton animation="wave" />
+      <Skeleton animation={false} />
+      <Skeleton />
     </Box>
   );
 };
