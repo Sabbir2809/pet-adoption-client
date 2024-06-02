@@ -36,13 +36,13 @@ const PetInfo = ({ label, value }: { label: string; value: string }) => (
 
 const PetDetailsPage = ({ params }: TParams) => {
   const router = useRouter();
+  if (!isLoggedIn()) {
+    router.push("/login");
+  }
+
   const [open, setOpen] = useState(false);
   const id = params?.petId;
   const { data: petDetails, isLoading } = useGetPetDetailsQuery(id);
-
-  if (!isLoggedIn()) {
-    return router.push("/login");
-  }
 
   return (
     <Container maxWidth="lg" sx={{ marginTop: "100px", marginBottom: "100px", minHeight: "100vh" }}>
