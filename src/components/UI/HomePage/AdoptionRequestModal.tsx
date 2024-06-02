@@ -5,6 +5,7 @@ import { useSubmitAdoptionRequestMutation } from "@/redux/api/adoptionRequestApi
 import { getUserInfo } from "@/services/auth.services";
 import sweetAlert from "@/utils/SweetAlert";
 import { Button } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 
 type TProps = {
@@ -14,6 +15,7 @@ type TProps = {
 };
 
 const AdoptionRequestModal = ({ open, setOpen, petId }: TProps) => {
+  const router = useRouter();
   const { userId } = getUserInfo();
 
   const [submitAdoptionRequest] = useSubmitAdoptionRequestMutation();
@@ -30,6 +32,8 @@ const AdoptionRequestModal = ({ open, setOpen, petId }: TProps) => {
       if (res?.id) {
         sweetAlert("Adoption Request Submitted Successfully", "success");
         setOpen(false);
+        router.push("/dashboard/user/adoption");
+        router.refresh();
       }
     } catch (error) {
       console.error(error);

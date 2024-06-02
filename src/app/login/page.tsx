@@ -14,6 +14,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { z } from "zod";
@@ -29,6 +30,7 @@ const loginValidationSchema = z.object({
 });
 
 const LoginPage = () => {
+  const router = useRouter();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -41,8 +43,9 @@ const LoginPage = () => {
       setIsLoading(false);
       if (res?.data?.accessToken) {
         // set user info localStorage
-        storeUserInfo({ accessToken: res?.data?.accessToken });
         sweetAlert(res?.message, "success");
+        storeUserInfo({ accessToken: res?.data?.accessToken });
+        router.refresh();
       } else {
         setError(res?.message);
       }

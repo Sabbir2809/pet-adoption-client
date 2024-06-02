@@ -58,6 +58,7 @@ const RegisterPage = () => {
           // set user info localStorage and navigate home route
           storeUserInfo({ accessToken: user?.data?.accessToken });
           router.push("/dashboard");
+          router.refresh();
         }
       } else {
         setError(res?.message);
