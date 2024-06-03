@@ -9,6 +9,7 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 import { z } from "zod";
+import logoutUser from "../../../../services/actions/logoutUser";
 
 const validationSchema = z.object({
   oldPassword: z.string().min(4, "Must be at least 4 characters long"),
@@ -24,7 +25,7 @@ const ChangePassword = () => {
       const res = await changePassword(values).unwrap();
       if (res) {
         sweetAlert("Password Change Successfully", "success");
-        router.push("/dashboard");
+        logoutUser(router);
       } else {
         sweetAlert("Incorrect Old Password", "error");
       }

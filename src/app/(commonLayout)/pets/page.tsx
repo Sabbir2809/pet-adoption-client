@@ -13,9 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const PetsPage = async () => {
-  const res = await fetch("https://adoptify-server-j9m1.onrender.com/api/v1/pets", {
-    cache: "no-store",
-  });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pets`);
   const { data: pets } = await res.json();
 
   return (
