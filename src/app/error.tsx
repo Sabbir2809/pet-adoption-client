@@ -1,19 +1,22 @@
 "use client";
-
-import { Alert, AlertTitle, Button } from "@mui/material";
 import { useEffect } from "react";
 
-const ErrorPage = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
+interface IErrorProps {
+  error: Error & { digest?: string };
+  reset: () => void;
+}
+
+export default function Error({ error, reset }: IErrorProps) {
   useEffect(() => {
+    // Log the error to an error reporting service
     console.error(error);
   }, [error]);
 
   return (
-    <Alert severity="error">
-      <AlertTitle>{error.message}</AlertTitle>
-      <Button onClick={() => reset()}>Try again</Button>
-    </Alert>
+    <div>
+      <h2>Something went wrong!</h2>
+      {/* Attempt to recover by trying to re-render the segment */}
+      <button onClick={() => reset()}>Try again</button>
+    </div>
   );
-};
-
-export default ErrorPage;
+}

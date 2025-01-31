@@ -15,7 +15,7 @@ import { Email, Phone } from "@mui/icons-material";
 
 const teamMembers = [
   { name: "Md. Sabbir Hossain", role: "Founder" },
-  { name: "Mahfuza Akter Shorna", role: "Community Outreach Coordinator" },
+  { name: "Sumaiya Reza", role: "Community Outreach Coordinator" },
   { name: "Lamiya", role: "Adoption Counselor" },
 ];
 
@@ -27,9 +27,9 @@ const AboutUs = () => {
           Welcome to Adoptify
         </Typography>
         <Typography variant="h6" component="p">
-          We are dedicated to connecting loving families with pets in need of a forever home. Our
-          mission is to make the adoption process seamless and fulfilling, ensuring every pet finds
-          a safe and caring environment.
+          We are dedicated to connecting loving families with pets in need of a forever
+          home. Our mission is to make the adoption process seamless and fulfilling,
+          ensuring every pet finds a safe and caring environment.
         </Typography>
       </Box>
 
@@ -54,8 +54,8 @@ const AboutUs = () => {
               Our Mission
             </Typography>
             <Typography variant="body1">
-              To provide a supportive adoption experience, promote responsible pet ownership, and
-              enhance the well-being of all animals.
+              To provide a supportive adoption experience, promote responsible pet
+              ownership, and enhance the well-being of all animals.
             </Typography>
           </Box>
         </Grid>
@@ -79,9 +79,9 @@ const AboutUs = () => {
               Our Story
             </Typography>
             <Typography variant="body1">
-              Founded in 2024, we have helped thousands of pets find their forever homes. With a
-              passion for animal welfare, our team works tirelessly to match pets with their perfect
-              families.
+              Founded in 2024, we have helped thousands of pets find their forever homes.
+              With a passion for animal welfare, our team works tirelessly to match pets
+              with their perfect families.
             </Typography>
           </Box>
         </Grid>
@@ -105,8 +105,8 @@ const AboutUs = () => {
               How You Can Help
             </Typography>
             <Typography variant="body1">
-              Adopt, donate, or volunteer – your support is crucial. Join us in our mission to give
-              every pet the loving home they deserve.
+              Adopt, donate, or volunteer – your support is crucial. Join us in our
+              mission to give every pet the loving home they deserve.
             </Typography>
           </Box>
         </Grid>
